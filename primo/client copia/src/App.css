@@ -1,0 +1,100 @@
+
+
+ 
+/* Global */
+
+.active-filter {
+  font-weight: bold;
+  color: #ffffff;
+  /* Add any other styles to highlight the active filter */
+}
+td,th {
+  text-align: center;
+}
+.vheight-100 {
+  min-height: 100vh;
+}
+.Nav{
+color: black;
+}
+/* Styles related to NavBar */
+.navbar-padding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.below-nav {
+  padding-top: 5rem;
+}
+
+/* Icons */
+.icon-size {
+  font-size: 1.5rem;
+}
+
+/* Filters and projects */
+.list-group-item {
+  background-color: transparent;
+}
+
+.active {
+  background-color: #795816;
+  border-color: #E4A11B;
+}
+
+.list-group-item-action:hover {
+  background-color: #E4A11B;
+  color: white;
+}
+
+.displaymario{
+  display:flex
+}
+
+small.watch-date {
+  text-align: right;
+}
+
+.projects-title {
+  margin-top: 2rem;
+}
+
+.notbold {
+  font-weight: normal;
+}
+
+/* Class for important tasks */
+.favorite {
+  color: red;
+}
+
+
+
+/*
+ * NOTE: HTML collapses multiple withespaces into one, so "Hello      world!" becomes "Hello world!".
+ * If you want to keep them use white-space: pre-wrap;
+ */
+.keep-white-space {
+  white-space: pre-wrap;
+}
+
+/* Add task button */
+.fixed-right-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  margin: 0 1.5rem 1.5rem 0;
+  border-radius: 50%;
+}
+
+/* Adding padding to form */
+.form-padding {
+  padding: 2rem;
+}
+
+.smaller-form {
+  width: 200px; /* Adjust the width to your desired value */
+  /* Add any other custom styles to resize the form */
+}
+
