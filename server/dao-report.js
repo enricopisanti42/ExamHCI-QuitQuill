@@ -49,7 +49,7 @@ exports.updateReport = async (id, report) => {
         if (this.changes !== 1) {
           resolve({ error: 'No report was updated.' });
         } else {
-          resolve(exports.getPage(id)); 
+          resolve(); 
         }
       });
   

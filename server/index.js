@@ -9,7 +9,7 @@ const reportDao = require('./dao-report');
 const timeDao = require('./dao-time');
 
 // init express and set-up the middlewares ***/
-const app = new express();
+const app = express();
 const port = 3001;
 
 app.use(morgan('dev'));
@@ -45,10 +45,6 @@ app.post('/api/chat/add',
     const message = {
       text: req.body.text
     };
-
-    //!! The request body is empty 
-
-    console.log(req.body);
 
     try {
       const result1 = await chatDao.createMessage(message); 
@@ -86,10 +82,6 @@ app.post('/api/report/add',
       smoked: req.body.smoked,
       feelings: req.body.feelings
     };
-
-    //!! The request body is empty 
-
-    console.log(req.body);
 
     try {
       const result1 = await reportDao.createReport(report); 
