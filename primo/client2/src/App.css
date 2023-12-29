@@ -5,7 +5,7 @@
 
 .active-filter {
   font-weight: bold;
-  color: #ffffff;
+  color: #ffffff;;
   /* Add any other styles to highlight the active filter */
 }
 td,th {
@@ -21,10 +21,26 @@ color: black;
 .navbar-padding {
   padding-left: 1rem;
   padding-right: 1rem;
+  height: 8rem;
+  background: #E4A11B;
+}
+
+.logo{
+  font-size:5cap;
 }
 
 .below-nav {
-  padding-top: 5rem;
+  padding-top: 9rem;
+}
+
+.navbar-items {
+  margin-left: 1.5rem; 
+  margin-right: 1.5rem;
+  font-size: 2.5cap;/* Center the navbar */
+}
+
+.navbar-items:hover {
+  font-weight:bold ;
 }
 
 /* Icons */
@@ -97,4 +113,83 @@ small.watch-date {
   width: 200px; /* Adjust the width to your desired value */
   /* Add any other custom styles to resize the form */
 }
+
+/* FakeChat.css */
+
+.container-chat {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.message-container {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.message {
+  text-align: left;
+  margin: 10px;
+}
+
+.message-box {
+  background: #d3d3d3;
+  padding: 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.sender-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.message-text {
+  margin-top: 5px;
+}
+
+.timestamp {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.form-container {
+  margin-top: 10px;
+  display: flex;
+}
+
+.input-box {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.send-button {
+  background-color: #007bff;
+  padding: 3%;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.community{
+    text-align: center;
+    font-size: 2.3cap
+    
+}
+
+
 

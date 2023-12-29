@@ -1,6 +1,8 @@
 import React ,{useEffect,useState}from 'react';
 import { Row, Col, Button,Toast, Spinner,Container} from 'react-bootstrap';
 import { useNavigate, Link, useParams, useLocation, Outlet } from 'react-router-dom';
+import { Homelayout } from './Homepage';
+import { FakeChat } from './Chat';
 
 
 import API from '../API';
@@ -9,7 +11,7 @@ function DefaultLayout(props) {
   return (
     <Row className="below-nav">
         <Col sm={4}>
-          <h1>qui mettiamo la chat</h1>
+          <FakeChat/>
         </Col>
         <Col sm={8}>
         <Outlet/>
@@ -23,14 +25,15 @@ function DefaultLayout(props) {
 function MainLayout(props) {
 
 
-  const { filterLabel } = useParams();
+  let { filterLabel } = useParams();
+
 
 
   switch (filterLabel) {
     case 'home':
       return (
         <>
-        <h1 className="pb-4" >qui mettiamo un componente per la home</h1>
+          <Homelayout/>
         </>
       );
       break;

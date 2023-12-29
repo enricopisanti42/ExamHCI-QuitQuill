@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import API from '../API';
-import { Navbar, Nav, Form } from 'react-bootstrap';
+import { Navbar, Nav, Col, Row, Container} from 'react-bootstrap';
 import { Link ,useLocation} from 'react-router-dom';
 import { RouteFilters } from './Filters';
 const Navigation = (props) => {
@@ -13,14 +13,21 @@ const Navigation = (props) => {
   const activeFilter = location.pathname.split('/').pop(); // Extract the last segment of the pathname as the active filter
 
   return (
-    <Navbar bg="primary" fixed="top" className="navbar-padding">
-      <Link style={{textDecoration: 'none'}} to="/">
-        <Navbar.Brand>
-           Quit Quill
-        </Navbar.Brand>
-      </Link>
-     
-      <RouteFilters items={props.filters} filterLabel={activeFilter}/>
+    <Navbar fixed="top" className="navbar-padding">
+      <Container fluid>
+      
+          <Col xs={12} sm={4}>
+            <Link style={{textDecoration: 'none'}} to="/">
+              <Navbar.Brand className='logo'>
+                Quit Quill
+              </Navbar.Brand>
+            </Link>
+          </Col>
+          <Col xs={12} sm={8}>
+            <RouteFilters items={props.filters} filterLabel={activeFilter}/>
+          </Col>
+      
+      </Container>
     </Navbar>
   );
 }

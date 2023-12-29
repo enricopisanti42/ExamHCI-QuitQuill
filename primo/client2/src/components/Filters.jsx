@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
 
 const RouteFilters = (props) => {
 
@@ -10,15 +10,15 @@ const RouteFilters = (props) => {
   const filterArray = Object.entries(items);
 
   return (
-    <>
+    <Container>
       {filterArray.map(([filterName, { label, url }]) => (
         <Link key={filterName} to={url} style={{ textDecoration: 'none' }}>
-          <Navbar.Brand className={props.filterLabel === filterName ? 'active-filter' : ''}>
+          <Navbar.Brand className={props.filterLabel === filterName ? 'active-filter navbar-items ' : 'navbar-items'}>
             {label}
           </Navbar.Brand>
         </Link>
       ))}
-    </>
+    </Container>
   );
       }
 
