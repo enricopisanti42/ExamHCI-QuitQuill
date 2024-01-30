@@ -121,10 +121,11 @@ export { FakeChat};
 
 
 import React, { useState, useRef, useEffect } from 'react';
+import API from '../API';
 
 
 
-const ChatMessage = ({ sender, text, time }) => (
+const ChatMessage = ({ sender, text }) => (
   <div className="message">
     <div className="message-box">
       <div className="sender-info">
@@ -132,33 +133,43 @@ const ChatMessage = ({ sender, text, time }) => (
         {sender}
       </div>
       <div className="message-text">{text}</div>
-      <div className="timestamp">
-        <i className="icon bi bi-clock-fill"></i>
-        {time}
-      </div>
     </div>
   </div>
 );
 
 const FakeChat = () => {
-  const [messages, setMessages] = useState([
-    { sender: 'Support', text: 'Hello! How can I help you?', time: '12:00 PM' },
-    { sender: 'User', text: 'Hi! I have a question.', time: '12:05 PM' },
-    { sender: 'Support', text: 'Sure, go ahead and ask.', time: '12:10 PM' },
-  ]);
-
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const chatContainerRef = useRef(null);
+  const [posted,setposted]=useState(0);
 
-  const handleSendMessage = (event) => {
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const messaggiDB = await API.getChatMessage();
+        setMessages(messaggiDB);
+      } catch (error) {
+        console.error("Errore durante il recupero dei messaggi:", error);
+      }
+    };
+    
+    fetchData();
+  }
+    
+    ,[posted]);
+    
+  
+
+
+  const  handleSendMessage =  (event) => {
     event.preventDefault();
     if (newMessage.trim() !== '') {
-      const updatedMessages = [
-        ...messages,
-        { sender: 'User', text: newMessage, time: new Date().toLocaleTimeString() },
-      ];
-      setMessages(updatedMessages);
+      const updatedMessage =
+        { sender: 'User', text: newMessage };
+       API.sendChatMessage(updatedMessage);
       setNewMessage('');
+      setposted(prev=>prev+1);
     }
   };
 
@@ -177,8 +188,7 @@ const FakeChat = () => {
           <ChatMessage
             key={index}
             sender={message.sender}
-            text={message.text}
-            time={message.time}
+            text={message.Text}
           />
         ))}
       </div>
@@ -186,7 +196,7 @@ const FakeChat = () => {
         <input
           type="text"
           value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
+          onChange={(e) => {setNewMessage(e.target.value)}}
           className="input-box"
           placeholder="Type your message..."
         />

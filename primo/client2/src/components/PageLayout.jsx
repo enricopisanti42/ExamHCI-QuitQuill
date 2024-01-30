@@ -3,6 +3,7 @@ import { Row, Col, Button,Toast, Spinner,Container} from 'react-bootstrap';
 import { useNavigate, Link, useParams, useLocation, Outlet } from 'react-router-dom';
 import { Homelayout } from './Homepage';
 import { FakeChat } from './Chat';
+import { Calendar } from './Calendar';
 
 
 import API from '../API';
@@ -39,9 +40,8 @@ function MainLayout(props) {
       break;
     case 'calendar':
       return (
-        <>
-        <h1 className="pb-4" >qui mettiamo un componente per il calendario</h1>
-        </>
+        
+        <Calendar/>
       );
       break;
     case 'milestones':

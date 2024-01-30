@@ -74,17 +74,20 @@ const logOut = async () => {
  * This function retrieves the reservations for a user based on their ID.
  * It takes the user ID as a parameter and returns a JSON object with the user's reservations.
  */
-const getUserReservations = async (userId) => {
-  return getJson(
-    fetch(`${SERVER_URL}bookings/${userId}`, {
-      // this parameter specifies that authentication cookie must be forwarded
-      credentials: "include",
-    })
-  );
+const getChatMessage = async () => {
+  return getJson(fetch(`${SERVER_URL}chat`));
 };
 
-const getAirplaneInfo = async (planetype) => {
-  return getJson(fetch(`${SERVER_URL}airplanes/${planetype}`));
+const sendChatMessage = async (message) => {
+  return getJson(
+    fetch(`${SERVER_URL}chat/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    })
+  );
 };
 
 const createBooking = async (booking) => {
@@ -112,8 +115,8 @@ const API = {
   logIn,
   getUserInfo,
   logOut,
-  getUserReservations,
-  getAirplaneInfo,
+  getChatMessage,
+  sendChatMessage,
   createBooking,
   deleteBooking,
 };
