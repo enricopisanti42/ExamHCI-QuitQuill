@@ -27,8 +27,7 @@ function MainLayout(props) {
 
 
   let { filterLabel } = useParams();
-
-
+  filterLabel = filterLabel || 'home';
 
   switch (filterLabel) {
     case 'home':
@@ -61,7 +60,12 @@ function MainLayout(props) {
     default:
       return (
         <>
-        <h1 className="pb-4" >not found</h1>
+        <h1 className="pb-4" ><>
+          <h2>This is not the route you are looking for!</h2>
+          <Link to="/">
+            <Button variant="primary">Go Home!</Button>
+          </Link>
+        </></h1>
         </>
       );
       break;
@@ -100,16 +104,6 @@ function LoginLayout(props) {
   );
 }
 
-function NotFoundLayout() {
-    return(
-        <>
-          <h2>This is not the route you are looking for!</h2>
-          <Link to="/">
-            <Button variant="primary">Go Home!</Button>
-          </Link>
-        </>
-    );
-  }
 
 
-export { DefaultLayout, ExpertsLayout, NotFoundLayout, MainLayout, LoginLayout }; 
+export { DefaultLayout, ExpertsLayout,  MainLayout, LoginLayout }; 

@@ -179,7 +179,7 @@ const FakeChat = () => {
   }, [messages]);
 
   return (
-    <div className="container-chat">
+    <div className="container-chat fixed-chat">
         <div className='community'>
             <p>Community</p>
         </div>

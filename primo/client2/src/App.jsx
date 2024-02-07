@@ -11,7 +11,7 @@ import { Container, Toast} from 'react-bootstrap/'
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 
 import {Navigation} from './components/Navigation';
-import { MainLayout, DefaultLayout, NotFoundLayout,LoginLayout, ExpertsLayout } from './components/PageLayout';
+import { MainLayout, DefaultLayout,LoginLayout, ExpertsLayout } from './components/PageLayout';
 
 
 import API from './API';
@@ -121,7 +121,7 @@ function App() {
           <Route path="/" element={ <DefaultLayout filters={filters}/> } >
             <Route index element={ <MainLayout  filters={filters} /> } />
             <Route path="/:filterLabel" element={ <MainLayout  filters={filters}  /> } />
-            <Route path="*" element={<NotFoundLayout />} />
+
 
             
           </Route>
