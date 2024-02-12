@@ -10,15 +10,20 @@ import {
 import { Homelayout } from "./Homepage";
 import { FakeChat } from "./Chat";
 import { Calendar } from "./Calendar";
+import { ChatApp} from "./Expter";
 
 import API from "../API";
 function DefaultLayout(props) {
+  let { filterLabel } = useParams();
+
   return (
     <Row className="below-nav">
-      <Col sm={4}>
-        <FakeChat />
-      </Col>
-      <Col sm={8}>
+      {filterLabel !== 'askexperts' && (
+        <Col sm={4}>
+          <FakeChat />
+        </Col>
+      )}
+      <Col sm={filterLabel === 'askexperts' ? 12 : 8}>
         <Outlet />
       </Col>
     </Row>
@@ -50,7 +55,7 @@ function MainLayout(props) {
     case "askexperts":
       return (
         <>
-          <h1 className="pb-4">qui mettiamo un componente per gli esperti</h1>
+          <ChatApp/>
         </>
       );
       break;

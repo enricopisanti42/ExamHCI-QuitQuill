@@ -46,7 +46,7 @@ const ReportsList = ({ reports }) => {
         </Row>
         <Row>
           <Col>
-            <strong>Yours Feelings:</strong> {report.Feelings}
+            <strong>Your Feelings:</strong> {report.Feelings}
           </Col>
            <Col xs={3} className='text-right'>
            {report.Time}
@@ -156,7 +156,7 @@ function Homelayout(props) {
       <Col className='paddedtexttop'>{money}</Col>
     </Row>
     <Row>
-      <h2>Rmeber: You are doing this for your children</h2>
+      <h2>Remember: You are doing this for your children</h2>
     </Row>
     <Row>
     <h3>Your day so far:</h3>
