@@ -11,6 +11,18 @@
 td,th {
   text-align: center;
 }
+
+.center-icon{
+  text-align: center;
+  padding-top: 30px;
+}
+.bigger-text{
+  font-size:2cap;
+}
+.paddedtexttop{
+  padding-top: 20px;
+  font-size:3cap;
+}
 .vheight-100 {
   min-height: 100vh;
 }
@@ -31,6 +43,19 @@ color: black;
 
 .below-nav {
   padding-top: 9rem;
+}
+.container-reports{
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+.repo-container {
+  height: 150px;
+  background-color: aliceblue;
+  overflow-y: scroll;
+  border-radius: 10px;
+  margin: auto;
+  padding: 20px;
 }
 
 .navbar-items {

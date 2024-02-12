@@ -90,17 +90,8 @@ const sendChatMessage = async (message) => {
   );
 };
 
-const createBooking = async (booking) => {
-  return getJson(
-    fetch(`${SERVER_URL}bookings`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(booking),
-    })
-  );
+const getReports = async (booking) => {
+  return getJson(fetch(`${SERVER_URL}reports`));
 };
 const deleteBooking = async (bookingid) => {
   return getJson(
@@ -117,7 +108,7 @@ const API = {
   logOut,
   getChatMessage,
   sendChatMessage,
-  createBooking,
+  getReports,
   deleteBooking,
 };
 export default API;
