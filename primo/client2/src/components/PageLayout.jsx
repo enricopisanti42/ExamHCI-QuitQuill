@@ -31,7 +31,7 @@ function DefaultLayout(props) {
       // Ritarda la renderizzazione dell'elemento Row di ChatApp di 1000 ms (1 secondo) quando filterLabel diventa 'askexperts'
       const timeout = setTimeout(() => {
         setDelayedRender(true);
-      }, 200);
+      }, 275);
       return () => clearTimeout(timeout);
     } else {
       setDelayedRender(false);

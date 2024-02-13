@@ -2,6 +2,10 @@
 
  
 /* Global */
+.user-message {
+  text-align: right;
+}
+
 
 .active-filter {
   font-weight: bold;
