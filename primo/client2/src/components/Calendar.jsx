@@ -78,7 +78,7 @@ const Calendar = () => {
               )
             }
           >
-            <i class="bi bi-caret-left-fill"></i>
+            <i className="bi bi-caret-left-fill"></i>
           </Button>{' '}
           </Col>
           <Col>
@@ -100,7 +100,7 @@ const Calendar = () => {
               )
             }
           >
-          <i class="bi bi-caret-right-fill"></i>
+          <i className="bi bi-caret-right-fill"></i>
           </Button></Col>
       </Row>
       <Row className="mt-1">

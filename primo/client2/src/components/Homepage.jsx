@@ -16,13 +16,13 @@ const ReportsList = ({ reports }) => {
   const getMoodIcon = (mood) => {
     switch (mood) {
       case 0:
-        return <i class="bi bi-emoji-frown" style={{ fontSize: '1.5rem' }}></i>; // sad face
+        return <i className="bi bi-emoji-frown" style={{ fontSize: '1.5rem' }}></i>; // sad face
       case 1:
-        return <i class="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // neutral face
+        return <i className="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // neutral face
       case 2:
-        return <i class="bi bi-emoji-smile" style={{ fontSize: '1.5rem' }}></i>; // happy face
+        return <i className="bi bi-emoji-smile" style={{ fontSize: '1.5rem' }}></i>; // happy face
       default:
-        return <i class="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // Default to neutral face
+        return <i className="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // Default to neutral face
     }
   };
   return (

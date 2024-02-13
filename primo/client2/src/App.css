@@ -190,6 +190,8 @@ small.watch-date {
   color: #666;
 }
 
+
+
 .form-container {
   margin-top: 10px;
   display: flex;
@@ -256,6 +258,59 @@ small.watch-date {
   padding: 20px;
 }
 
+/* animazioni */
+
+.FakeChat {
+  transition: transform 0.5s ease;
+}
+
+.FakeChat.hidden {
+  transform: translateX(-100%);
+}
+
+.FakeChat.slide-out-left {
+  transform: translateX(-100%);
+}
+
+.FakeChat.slide-in-right {
+  transform: translateX(0);
+}
+
+.Outlet {
+  transition: transform 0.5s ease;
+}
+
+.Outlet.hidden {
+  transform: translateX(100%);
+}
+
+.Outlet.slide-out-right {
+  transform: translateX(100%);
+}
+
+.Outlet.slide-in-left {
+  transform: translateX(0);
+}
+
+.chatapp-visible {
+  animation: slideDown 0.5s ease 0s 1 normal forwards; /* Aggiunge animazione di scorrimento verso il basso */
+}
+
+.chatapp-hidden {
+  display: none; /* Nasconde la riga */
+}
+
+@keyframes slideDown {
+  0% {
+    display: none; /* Nasconde la riga all'inizio dell'animazione */
+    transform: translateY(-100%);
+  }
+  100% {
+    display: flex !important;
+    transform: translateY(0);
+    display: flex !important; /* Mostra la riga quando l'animazione inizia */
+  }
+}
 
 
 
