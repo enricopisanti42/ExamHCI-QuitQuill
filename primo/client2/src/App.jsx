@@ -17,6 +17,11 @@ import API from "./API";
 
 function App() {
   const [message, setMessage] = useState("");
+  const [posted,setpostedd]=useState(0);
+
+  const setposted = () => {
+    setpostedd(prev=>prev+1);
+  };
 
   // If an error occurs, the error message will be shown in a toast.
   const handleErrors = (err) => {
@@ -40,11 +45,11 @@ function App() {
         <Navigation filters={filters} />
 
         <Routes>
-          <Route path="/" element={<DefaultLayout filters={filters} />}>
-            <Route index element={<MainLayout filters={filters} />} />
+          <Route path="/" element={<DefaultLayout filters={filters} posted={posted} setposted={setposted} />}>
+            <Route index element={<MainLayout filters={filters} posted={posted} setposted={setposted}/>} />
             <Route
               path="/:filterLabel"
-              element={<MainLayout filters={filters} />}
+              element={<MainLayout filters={filters} posted={posted} setposted={setposted}/>}
             />
           </Route>
         </Routes>

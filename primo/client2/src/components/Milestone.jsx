@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import API from '../API';
 import '../APP.css'; // Assicurati di avere un file CSS per lo stile delle milestone
 
-function Milestone() {
+function Milestone(props) {
   const [milestones, setMilestones] = useState([]);
   const [showModal, setShowModal] = useState(false); // Stato per controllare la visibilità del modal
   const [selectedMilestone, setSelectedMilestone] = useState(null); // Stato per memorizzare la milestone selezionata
@@ -16,6 +16,7 @@ function Milestone() {
       const updatedMessage =
         { sender: 'User', text: text };
        API.sendChatMessage(updatedMessage);
+       props.setposted();
     }
 
   useEffect(() => {
@@ -55,7 +56,7 @@ function Milestone() {
   const shareMilestone = (text) => {
     handleSendMessage(text)
     setShowModal(false); // Chiudi il modal dopo aver condiviso la milestone
-    window.location.reload(); // Ricarica la pagina dopo l'invio del messaggio
+ // Ricarica la pagina dopo l'invio del messaggio
   };
 
   // Raggruppa le milestone per tipo

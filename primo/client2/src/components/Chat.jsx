@@ -137,7 +137,7 @@ const ChatMessage = ({ sender, text }) => (
   </div>
 );
 
-const FakeChat = () => {
+const FakeChat = (props) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const chatContainerRef = useRef(null);
@@ -157,7 +157,7 @@ const FakeChat = () => {
     fetchData();
   }
     
-    ,[posted]);
+    ,[props.posted]);
     
   
 
@@ -169,7 +169,7 @@ const FakeChat = () => {
         { sender: 'User', text: newMessage };
        API.sendChatMessage(updatedMessage);
       setNewMessage('');
-      setposted(prev=>prev+1);
+      props.setposted(prev=>prev+1);
     }
   };
 

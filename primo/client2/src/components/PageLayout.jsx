@@ -20,6 +20,8 @@ function DefaultLayout(props) {
   const [currentFilterLabel, setCurrentFilterLabel] = useState('');
   const [delayedRender, setDelayedRender] = useState(false); // Stato per controllare il ritardo nella renderizzazione
 
+
+
   useEffect(() => {
     setPrevFilterLabel(currentFilterLabel); // Salva il valore precedente di filterLabel
     setCurrentFilterLabel(filterLabel);
@@ -75,7 +77,7 @@ function DefaultLayout(props) {
     )}
     <Row className="below-nav">
       <Col sm={4} className={`FakeChat ${slideDirection}`}>
-        <FakeChat />
+        <FakeChat posted={props.posted} setposted={props.setposted}/>
       </Col>
       {filterLabel === 'askexperts' ? (
         <Col
@@ -108,6 +110,11 @@ function DefaultLayout(props) {
 function MainLayout(props) {
   let { filterLabel } = useParams();
   filterLabel = filterLabel || "home";
+   
+
+
+
+
 
   switch (filterLabel) {
     case "home":
@@ -123,7 +130,7 @@ function MainLayout(props) {
     case "milestones":
       return (
         <>
-          <Milestone />
+          <Milestone posted={props.posted} setposted={props.setposted} />
         </>
       );
       break;
