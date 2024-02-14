@@ -59,7 +59,7 @@ function DefaultLayout(props) {
       componentToRender = <Calendar />;
       break;
     case "milestones":
-      componentToRender = <h1 className="pb-4">qui mettiamo un componente per le milestones</h1>;
+      componentToRender = <Milestone/>;
       break;
     default:
       break;
