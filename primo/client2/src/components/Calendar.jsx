@@ -132,5 +132,3 @@ const Calendar = () => {
 };
 
 export { Calendar };
-
-

@@ -11,6 +11,7 @@ import { Homelayout } from "./Homepage";
 import { FakeChat } from "./Chat";
 import { Calendar } from "./Calendar";
 import { ChatApp} from "./Expter";
+import { Milestone } from "./Milestone";
 
 import API from "../API";
 function DefaultLayout(props) {
@@ -48,7 +49,7 @@ function MainLayout(props) {
     case "milestones":
       return (
         <>
-          <h1 className="pb-4">qui mettiamo un componente per le milestones</h1>
+          <Milestone />
         </>
       );
       break;

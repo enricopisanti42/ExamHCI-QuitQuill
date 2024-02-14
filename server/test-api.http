@@ -46,3 +46,8 @@ content-type: application/json
     "feelings": "Caio"
 }
 ###
+
+##Get the starting time of the app
+GET http://localhost:3001/api/milestones HTTP/1.1
+
+###

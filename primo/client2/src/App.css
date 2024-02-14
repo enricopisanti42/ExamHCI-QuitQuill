@@ -256,6 +256,46 @@ small.watch-date {
   padding: 20px;
 }
 
+/* 
+CCS PER PAGINA MILESTONE
+*/
 
+.milestone-container {
+  font-size: 22px; /* Dimensione del carattere delle milestone */
+}
 
+.milestone-type {
+  margin-bottom: 50px; /* Spazio tra i tipi di milestone */
+}
 
+.milestone-item {
+  display: flex;
+  align-items: center;
+  margin-top: 20px; /* Spazio tra le descrizioni delle milestone */
+}
+
+.milestone-item.not-achieved {
+  color: #999; /* Grigio più chiaro per le milestone non raggiunte */
+}
+
+.description-container {
+  display: flex;
+  align-items: center;
+}
+
+.description-container span {
+  margin-right: 8px; /* Aggiungi margine a destra per separare il testo dall'icona */
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.share-icon {
+  padding: 10px;
+}
+
+.trophy {
+  padding: 10px;
+}

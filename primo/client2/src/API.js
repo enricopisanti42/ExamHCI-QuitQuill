@@ -93,6 +93,7 @@ const sendChatMessage = async (message) => {
 const getReports = async (booking) => {
   return getJson(fetch(`${SERVER_URL}reports`));
 };
+
 const deleteBooking = async (bookingid) => {
   return getJson(
     fetch(`${SERVER_URL}bookings/${bookingid}`, {
@@ -102,6 +103,10 @@ const deleteBooking = async (bookingid) => {
   );
 };
 
+const fetchMilestones = async () => {
+  return getJson(fetch(`${SERVER_URL}milestones`));
+}
+
 const API = {
   logIn,
   getUserInfo,
@@ -110,5 +115,6 @@ const API = {
   sendChatMessage,
   getReports,
   deleteBooking,
+  fetchMilestones,
 };
 export default API;

@@ -7,6 +7,7 @@ const cors = require("cors");
 const chatDao = require("./dao-chat");
 const reportDao = require("./dao-report");
 const timeDao = require("./dao-time");
+const milestoneDao = require("./dao-milestone");
 
 // init express and set-up the middlewares ***/
 const app = express();
@@ -108,6 +109,13 @@ app.put("/api/report/:id", async (req, res) => {
       .status(500)
       .json({ error: `Database error during the update of a report: ${err}` });
   }
+});
+
+app.get("/api/milestones", (req, res) => {
+  milestoneDao
+    .listMilestone()
+    .then((messages) => res.status(200).json(messages))
+    .catch((err) => res.status(500).json(err)); // always return a json and an error message
 });
 
 /*
