@@ -118,6 +118,13 @@ app.get("/api/milestones", (req, res) => {
     .catch((err) => res.status(500).json(err)); // always return a json and an error message
 });
 
+app.get("/api/time", (req, res) => {
+  timeDao
+    .getTime()
+    .then((messages) => res.status(200).json(messages))
+    .catch((err) => res.status(500).json(err)); // always return a json and an error message
+});
+
 /*
 
 //Update a page, by providing all relevant information and the id.

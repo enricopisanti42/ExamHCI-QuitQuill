@@ -7,9 +7,6 @@ import { Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 import API from '../API';
-// FARE NEL DB UNA TABELLA CON CUI CI SALVIAMO IL TEMPO DI INIZIO E IL TEMPO DEVE ESSERE CALCOLATO COME DIFFERENZA DAL TEMPO ATTUALE
-// ULTERIORE COSA DA SALVARE NEL DB é LA CHAT 
-// DA INSERIRE IL TRAKING DEL DAY --> GIORNO, ORA, MOOD, tempted or not, Text
 
 const ReportsList = ({ reports }) => {
 
@@ -61,50 +58,74 @@ const ReportsList = ({ reports }) => {
 
 
 const Timer = (props) => {
-  const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
-
+  //const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
+  const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTime((prevTime) => {
-        const newTime = { ...prevTime };
+    const getTimeFromAPI = async () => {
+      try {
+        // Ottenere la data dal database utilizzando la funzione fetchtime
+        const data = await API.fetchTime();
+        console.log(data);
+        const dateFromDB = new Date(data.Start);
+        console.log(dateFromDB);
 
-        // Increment minutes
-        newTime.minutes += 1;
+        const updateTimer = () => {
+          // Calcolare la differenza tra la data ottenuta dall'API e la data attuale
+          const currentDate = new Date();
+          /*
+          const differenceInMilliseconds = currentDate - dateFromDB;
 
-        // Adjust hours and reset minutes when reaching 60 minutes
-        if (newTime.minutes === 60) {
-          newTime.hours += 1;
-          newTime.minutes = 0;
-        }
+          // Convertire la differenza in giorni, ore e minuti
+          const days = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((differenceInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
 
-        // Adjust days and reset hours when reaching 24 hours
-        if (newTime.hours === 24) {
-          newTime.days += 1;
-          newTime.hours = 0;
+          setTime({ days, hours, minutes });
+          */
 
-          props.setMoney((prevMoney) => prevMoney + 1);
-        }
+          const differenceInSeconds = Math.floor((currentDate - dateFromDB) / 1000);
+          
+          // Convertire la differenza in giorni, ore, minuti e secondi
+          const days = Math.floor(differenceInSeconds / (24 * 3600));
+          const hours = Math.floor((differenceInSeconds % (24 * 3600)) / 3600);
+          const minutes = Math.floor((differenceInSeconds % 3600) / 60);
+          const seconds = differenceInSeconds % 60;
 
-        return newTime;
-      });
-    }, 60000); // Update every minute (60,000 milliseconds)
+          const newMoney = days * 5;
 
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, [props.money]); // The empty dependency array ensures that the effect runs only once when the component mounts
+          // Aggiorna lo stato di money solo se il valore è cambiato
+          if (newMoney !== props.money) {
+            props.setMoney(newMoney);
+          }
+
+
+          setTime({ days, hours, minutes, seconds });
+        };
+
+        // Esegui l'aggiornamento del timer all'avvio
+        updateTimer();
+
+        // Avvia il timer per aggiornare il tempo ogni minuto
+        //const intervalId = setInterval(updateTimer, 60000);
+        const intervalId = setInterval(updateTimer, 1000);
+
+        // Pulisci l'intervallo quando il componente viene smontato
+        return () => clearInterval(intervalId);
+      } catch (error) {
+        console.error('Error fetching data from API:', error);
+      }
+    };
+
+    getTimeFromAPI();
+  }, []);
 
   return (
     <div>
-      <p>
-        {time.days} days 
-      </p> 
-      <p>
-      {time.hours} hours
-      </p>
-      <p>
-      {time.minutes} minutes
-      </p>
+      <p>{time.days} days</p>
+      <p>{time.hours} hours</p>
+      <p>{time.minutes} minutes</p>
+      <p>{time.seconds} seconds</p>
     </div>
   );
 };
@@ -146,7 +167,7 @@ function Homelayout(props) {
   <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
   <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
 </svg></Col>
-      <Col className='bigger-text'><Timer setMoney={setMoney}></Timer></Col>
+      <Col className='bigger-text'><Timer money={money} setMoney={setMoney}></Timer></Col>
       <Col className='center-icon'><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-cash-coin" viewBox="0 0 16 16">
   <path fillRule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
   <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>

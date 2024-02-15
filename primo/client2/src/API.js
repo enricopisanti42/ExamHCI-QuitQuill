@@ -107,6 +107,10 @@ const fetchMilestones = async () => {
   return getJson(fetch(`${SERVER_URL}milestones`));
 }
 
+const fetchTime = async () => {
+  return getJson(fetch(`${SERVER_URL}time`));
+}
+
 const API = {
   logIn,
   getUserInfo,
@@ -116,5 +120,6 @@ const API = {
   getReports,
   deleteBooking,
   fetchMilestones,
+  fetchTime,
 };
 export default API;
