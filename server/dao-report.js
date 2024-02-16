@@ -53,9 +53,9 @@ exports.updateReport = async (id, report) => {
           reject(err);
         }
         if (this.changes !== 1) {
-          resolve({ error: "No report was updated." });
+          reject({ error: "No report was updated." });
         } else {
-          resolve();
+          resolve({message : "ok"});
         }
       }
     );

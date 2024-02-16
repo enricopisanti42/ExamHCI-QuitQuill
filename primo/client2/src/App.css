@@ -56,7 +56,6 @@ color: black;
 .repo-container {
   height: 150px;
   background-color: aliceblue;
-  overflow-y: scroll;
   border-radius: 10px;
   margin: auto;
   padding: 20px;

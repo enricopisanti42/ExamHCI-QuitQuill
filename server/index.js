@@ -87,19 +87,21 @@ app.post("/api/report/add", async (req, res) => {
 });
 
 app.put("/api/report/:id", async (req, res) => {
-  console.log(req.body);
+  
 
   // Is the id in the body equal to the id in the url?
-  if (req.body.id !== Number(req.params.id)) {
+  if (req.body.ID !== Number(req.params.id)) {
     return res.status(422).json({ error: "URL and body id mismatch" });
   }
 
   const report = {
     id: req.params.id,
-    mood: req.body.mood,
-    smoked: req.body.smoked,
-    feelings: req.body.feelings,
+    mood: req.body.Mood,
+    smoked: req.body.Smoked,
+    feelings: req.body.Feelings,
   };
+
+
 
   try {
     const result1 = await reportDao.updateReport(report.id, report);

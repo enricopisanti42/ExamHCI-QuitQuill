@@ -1,14 +1,26 @@
 import 'dayjs';
 
-import { Table, Form, Button,Container,Row,Col } from 'react-bootstrap/'
+import { Modal, Table, Form, Button,Container,Row,Col } from 'react-bootstrap/'
 
 import { Link, useLocation } from 'react-router-dom';
 
 import React, { useState, useEffect } from 'react';
 
 import API from '../API';
+const ReportsList = ({ reports , cambiostato }) => {
+  const [selectedReport, setSelectedReport] = useState(null);
+  const handleReportUpdate = (updatedReport) => {
+    API.modifyReport(updatedReport)
+    
+  };
 
-const ReportsList = ({ reports }) => {
+  const handleOpenEditModal = (report) => {
+    setSelectedReport(report);
+  };
+
+  const handleCloseEditModal = () => {
+    setSelectedReport(null);
+  };
 
   const getMoodIcon = (mood) => {
     switch (mood) {
@@ -22,40 +34,250 @@ const ReportsList = ({ reports }) => {
         return <i className="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // Default to neutral face
     }
   };
+
   return (
     <div>
       <h3>Reports:</h3>
       <ul>
         {reports.map((report) => (
-       <Container className='repo-container'>
-       <Row>
-       <Col>
+          <Container className='repo-container' key={report.id}>
+            <Row>
+              <Col>
                 <strong>Mood:</strong> {getMoodIcon(report.Mood)}
               </Col>
-           <Col xs={3} className='text-right'>
-            <p>EDIT BUTTON da fare</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <strong> {report.Smoked ? 'you were tempted to smoke' : 'you were not tempted to smoke'}</strong>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <strong>Your Feelings:</strong> {report.Feelings}
-          </Col>
-           <Col xs={3} className='text-right'>
-           {report.Time}
-           </Col>
-        </Row>
+              <Col xs={3} className='text-right'>
+                <Button variant="primary" onClick={() => handleOpenEditModal(report)}>
+                  Edit
+                </Button>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <strong> {report.Smoked ? 'you were tempted to smoke' : 'you were not tempted to smoke'}</strong>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <strong>Your Feelings:</strong> {report.Feelings}
+              </Col>
+              <Col xs={3} className='text-right'>
+                {report.Time}
+              </Col>
+            </Row>
           </Container>
         ))}
       </ul>
+      {selectedReport && (
+        <EditReportModal
+          report={selectedReport}
+          onUpdate={handleReportUpdate}
+          handleClose={handleCloseEditModal}
+          cambiostato={cambiostato}
+        />
+      )}
     </div>
   );
 };
 
+
+const EditReportModal = ({ report, onUpdate, handleClose, cambiostato }) => {
+  const [updatedReport, setUpdatedReport] = useState(report);
+
+  const handleUpdate = () => {
+    // Esegui l'aggiornamento del report utilizzando la funzione onUpdate passata dalle props
+    onUpdate(updatedReport);
+    // Chiudi il modal dopo l'aggiornamento
+    handleClose();
+    cambiostato();
+  };
+
+  return (
+    <Modal show={true} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Report</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form.Group controlId="formSmoked">
+          <Form.Label>Smoked:</Form.Label>
+          <Form.Control
+            as="select"
+            value={updatedReport.Smoked ? "yes" : "no"}
+            onChange={(e) =>
+              setUpdatedReport({
+                ...updatedReport,
+                Smoked: e.target.value === "yes" ? true : false,
+              })
+            }
+          >
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="formFeelings">
+          <Form.Label>Feelings:</Form.Label>
+          <Form.Control
+            type="text"
+            value={updatedReport.Feelings}
+            onChange={(e) =>
+              setUpdatedReport({ ...updatedReport, Feelings: e.target.value })
+            }
+          />
+        </Form.Group>
+        <Form.Group controlId="formMood">
+          <Form.Label>Mood:</Form.Label>
+          <Form.Control
+            as="select"
+            value={updatedReport.Mood}
+            onChange={(e) =>
+              setUpdatedReport({
+                ...updatedReport,
+                Mood: parseInt(e.target.value),
+              })
+            }
+          >
+            <option value={0}>Sad</option>
+            <option value={1}>Neutral</option>
+            <option value={2}>Happy</option>
+          </Form.Control>
+        </Form.Group>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleUpdate}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+
+/*
+const EditReportModal = ({ report, onUpdate, handleClose, cambiostato }) => {
+  const [updatedReport, setUpdatedReport] = useState(report);
+
+  const handleUpdate = () => {
+    // Esegui l'aggiornamento del report utilizzando la funzione onUpdate passata dalle props
+    onUpdate(updatedReport);
+    // Chiudi il modal dopo l'aggiornamento
+    handleClose();
+    cambiostato();
+  };
+
+  return (
+    <Modal show={true} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Report</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form.Group controlId="formSmoked">
+          <Form.Check
+            type="checkbox"
+            label={updatedReport.Smoked ? "Smoked Yes" : "Smoked No"}
+            checked={updatedReport.Smoked}
+            onChange={(e) => setUpdatedReport({ ...updatedReport, Smoked: e.target.checked })}
+          />
+        </Form.Group>
+        <Form.Group controlId="formFeelings">
+          <Form.Label>Feelings:</Form.Label>
+          <Form.Control
+            type="text"
+            value={updatedReport.Feelings}
+            onChange={(e) => setUpdatedReport({ ...updatedReport, Feelings: e.target.value })}
+          />
+        </Form.Group>
+        <Form.Group controlId="formMood">
+          <Form.Label>Mood:</Form.Label>
+          <Form.Control
+            as="select"
+            value={updatedReport.Mood}
+            onChange={(e) => setUpdatedReport({ ...updatedReport, Mood: parseInt(e.target.value) })}
+          >
+            <option value={0}>Sad</option>
+            <option value={1}>Neutral</option>
+            <option value={2}>Happy</option>
+          </Form.Control>
+        </Form.Group>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleUpdate}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+*/
+
+
+/*
+
+const EditReportModal = ({ report, onUpdate, handleClose, cambiostato }) => {
+  const [updatedReport, setUpdatedReport] = useState(report);
+
+  const handleUpdate = () => {
+    
+
+    // Esegui l'aggiornamento del report utilizzando la funzione onUpdate passata dalle props
+    onUpdate(updatedReport);
+    // Chiudi il modal dopo l'aggiornamento
+    handleClose();
+    cambiostato();
+  };
+
+  return (
+    <Modal show={true} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Report</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form.Group controlId="formSmoked">
+          <Form.Check
+            type="checkbox"
+            label="Smoked"
+            checked={updatedReport.Smoked}
+            onChange={(e) => setUpdatedReport({ ...updatedReport, Smoked: e.target.checked })}
+          />
+        </Form.Group>
+        <Form.Group controlId="formFeelings">
+          <Form.Label>Feelings:</Form.Label>
+          <Form.Control
+            type="text"
+            value={updatedReport.Feelings}
+            onChange={(e) => setUpdatedReport({ ...updatedReport, Feelings: e.target.value })}
+          />
+        </Form.Group>
+        <Form.Group controlId="formMood">
+          <Form.Label>Mood:</Form.Label>
+          <Form.Control
+            as="select"
+            value={updatedReport.Mood}
+            onChange={(e) => setUpdatedReport({ ...updatedReport, Mood: parseInt(e.target.value) })}
+          >
+            <option value={0}>Sad</option>
+            <option value={1}>Neutral</option>
+            <option value={2}>Happy</option>
+          </Form.Control>
+        </Form.Group>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleUpdate}>
+          Save Changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+*/
 
 const Timer = (props) => {
   //const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0 });
@@ -137,7 +359,11 @@ function Homelayout(props) {
   
   const [money, setMoney] = useState(0);
   const [reports,setRepo]=useState([]);
-  const [addedRepo,setaddedRepo]=useState(true);
+  const [addedRepo,setaddedRepo]=useState(0);
+
+  const handleupdatereport = () => {
+    setaddedRepo(prevAddedRepo=>prevAddedRepo + 1)
+  }
 
   useEffect(() => {
 
@@ -183,7 +409,7 @@ function Homelayout(props) {
     <h3>Your day so far:</h3>
     </Row>
     <Row>
-    <ReportsList reports={reports} />
+    <ReportsList reports={reports} cambiostato={handleupdatereport}/>
     </Row>
 
   </Container>

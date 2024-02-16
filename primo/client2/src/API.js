@@ -111,6 +111,21 @@ const fetchTime = async () => {
   return getJson(fetch(`${SERVER_URL}time`));
 }
 
+const modifyReport = async (report) => {
+  
+  return getJson(
+    fetch(`${SERVER_URL}report/${report.ID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(report),
+    })
+  );
+};
+
+
+
 const API = {
   logIn,
   getUserInfo,
@@ -121,5 +136,6 @@ const API = {
   deleteBooking,
   fetchMilestones,
   fetchTime,
+  modifyReport,
 };
 export default API;
