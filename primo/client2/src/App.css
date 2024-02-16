@@ -367,12 +367,22 @@ small.watch-date {
 CCS PER PAGINA MILESTONE
 */
 
+.colonnaMiles{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.colonnaMiles2{
+  margin-top: 20px;
+}
+
 .milestone-container {
   font-size: 22px; /* Dimensione del carattere delle milestone */
 }
 
 .milestone-type {
   margin-bottom: 50px; /* Spazio tra i tipi di milestone */
+  width: 600px;
 }
 
 .milestone-item {

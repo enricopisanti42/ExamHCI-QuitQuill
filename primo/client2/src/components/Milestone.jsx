@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Col, Row } from 'react-bootstrap';
 import API from '../API';
 import '../APP.css'; // Assicurati di avere un file CSS per lo stile delle milestone
 
@@ -67,18 +67,39 @@ function Milestone(props) {
 
   return (
     <div className="milestone-container">
-      {Object.entries(milestonesByType).map(([type, milestones]) => (
-        <div key={type} className="milestone-type">
-          <h2>{type}</h2>
-          <div>
-            {milestones.map((milestone) => (
-              <div key={milestone.ID} className={`milestone-item ${milestone.Achieved ? '' : 'not-achieved'}`}>
-                {milestone.Description} {getAchievedIcon(milestone)}
-              </div>
-            ))}
+      <div style={{ display: 'flex', flexDirection: 'row' }}></div>
+      <Row>
+      {/* Prima Colonna */}
+      <Col className='colonnaMiles'>
+        {['Health', 'Achievements'].map((type) => (
+          <div key={type} className="milestone-type">
+            <h2>{type}</h2>
+            <div>
+              {milestonesByType[type]?.map((milestone) => (
+                <div key={milestone.ID} className={`milestone-item ${milestone.Achieved ? '' : 'not-achieved'}`}>
+                  {milestone.Description} {getAchievedIcon(milestone)}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </Col>
+      {/* Seconda Colonna */}
+      <Col className='colonnaMiles2'>
+        {['Money', 'Emotional Well-being'].map((type) => (
+          <div key={type} className="milestone-type">
+            <h2>{type}</h2>
+            <div>
+              {milestonesByType[type]?.map((milestone) => (
+                <div key={milestone.ID} className={`milestone-item ${milestone.Achieved ? '' : 'not-achieved'}`}>
+                  {milestone.Description} {getAchievedIcon(milestone)}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </Col>
+    </Row>
       {/* Modal per la condivisione */}
       {showModal && (
         <Modal show={showModal} onHide={handleCloseModal}>
