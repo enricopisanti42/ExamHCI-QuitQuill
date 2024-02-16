@@ -16,6 +16,120 @@ const Calendar = () => {
     setShowModal(false);
   };
 
+  //Aggiunto per mostrare la lista dei report
+
+  const ReportsList = ({ reportn }) => {
+
+    const reports1 = [
+      {
+        Mood: 0,
+        Smoked: 1,
+        Feelings: "Feeling sad today",
+        Time: "10:00 am"
+      },
+      {
+        Mood: 2,
+        Smoked: 0,
+        Feelings: "Feeling happy today",
+        Time: "03:00 pm"
+      }
+    ];
+    
+    const reports2 = [
+      {
+        Mood: 1,
+        Smoked: 0,
+        Feelings: "Feeling neutral today",
+        Time: "09:30 am"
+      },
+      {
+        Mood: 2,
+        Smoked: 1,
+        Feelings: "Feeling happy today",
+        Time: "02:15 pm"
+      },
+      {
+        Mood: 0,
+        Smoked: 1,
+        Feelings: "Feeling sad today",
+        Time: "11:45 am"
+      }
+    ];
+
+    const reports3 = [
+      {
+        Mood: 1,
+        Smoked: 0,
+        Feelings: "Feeling neutral today",
+        Time: "09:30 am"
+      }
+    ];
+
+    let reports = [];
+
+    switch (reportn) {
+      case 1:
+        reports = reports1;
+        break;
+      case 2:
+        reports = reports2;
+        break;
+      case 3:
+        reports = reports3;
+        break;
+      default:
+        reports = []; // Assegna un array vuoto come fallback
+        break;
+    }
+    
+    console.log(reports);
+
+    const getMoodIcon = (mood) => {
+      switch (mood) {
+        case 0:
+          return <i className="bi bi-emoji-frown" style={{ fontSize: '1.5rem' }}></i>; // sad face
+        case 1:
+          return <i className="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // neutral face
+        case 2:
+          return <i className="bi bi-emoji-smile" style={{ fontSize: '1.5rem' }}></i>; // happy face
+        default:
+          return <i className="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // Default to neutral face
+      }
+    };
+    return (
+      <div>
+        <h3>Reports written on that date:</h3>
+        <ul>
+          {reports.map((report) => (
+            <>
+         <Container className='repo-container'>
+          <Row>
+            <Col>
+              <strong>Mood:</strong> {getMoodIcon(report.Mood)}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <strong> {report.Smoked ? 'you were tempted to smoke' : 'you were not tempted to smoke'}</strong>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <strong>Your Feelings:</strong> {report.Feelings}
+            </Col>
+             <Col xs={3} className='text-right'>
+             {report.Time}
+             </Col>
+          </Row>
+        </Container>
+        <br></br>
+        </>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
   const generateCalendar = () => {
     if (!selectedDate) return [];
 
@@ -51,6 +165,16 @@ const Calendar = () => {
                 {currentDate}
               </Button>
             )}
+            {(date.getDate() === 5 && date.getMonth() === 1 && date.getFullYear() === 2024) || (date.getDate() === 12 && date.getMonth() === 1 && date.getFullYear() === 2024) ? (
+              <span role="img" aria-label="trophy" style={{ marginLeft: '30px', fontSize: '2em' }}>🏆</span>
+            ) : null}
+
+            {(date.getDate() === 5 && date.getMonth() === 1 && date.getFullYear() === 2024) || (date.getDate() === 6 && date.getMonth() === 1 && date.getFullYear() === 2024) || 
+             (date.getDate() === 9 && date.getMonth() === 1 && date.getFullYear() === 2024) || (date.getDate() === 12 && date.getMonth() === 1 && date.getFullYear() === 2024)
+            ? (
+              <span role="img" aria-label="book" style={{ marginLeft: '15px', fontSize: '2em' }}>📖</span>
+            ) : null}
+            
           </Col>
         );
 
@@ -115,18 +239,40 @@ const Calendar = () => {
       </Row>    
       {generateCalendar()}
       <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>{selectedDate.toDateString()}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Modal content goes here.</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <Modal.Header closeButton>
+        <Modal.Title>{selectedDate.toDateString()}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {(selectedDate.getDate() === 5 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
+          <>
+          <p>Congratulations! <br></br> <br></br>
+          In this date you unlocked the achievement: 
+          <br></br><br></br>
+          20 cigarettes not smoked</p>
+          <ReportsList reportn={1}></ReportsList>
+          </>
+        ) : (selectedDate.getDate() === 12 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
+          <>
+          <p>Congratulations! <br></br> <br></br>
+          In this date you unlocked the achievement: 
+          <br></br><br></br>
+          "Coughing and shortness of breath decrease."</p>
+          <ReportsList reportn={2}></ReportsList>
+          </>
+        ) : (selectedDate.getDate() === 6 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
+          <ReportsList reportn={3}></ReportsList>
+        ) : (selectedDate.getDate() === 9 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
+          <ReportsList reportn={1}></ReportsList>
+        ) : (
+          <p>No achievements or report for this date.</p>
+        )}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleCloseModal}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
     </Container>
   );
 };
