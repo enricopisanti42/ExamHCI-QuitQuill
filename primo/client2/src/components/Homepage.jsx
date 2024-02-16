@@ -146,7 +146,7 @@ const EditReportModal = ({ report, onUpdate, handleClose, cambiostato }) => {
           Close
         </Button>
         <Button variant="primary" onClick={handleUpdate}>
-          Save Changes
+          Save Changess
         </Button>
       </Modal.Footer>
     </Modal>
