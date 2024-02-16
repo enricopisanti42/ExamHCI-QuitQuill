@@ -152,10 +152,12 @@ small.watch-date {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .message-container {
-  height: 300px;
+  height: 660px;    /* Da modificare questo per la lunghezza della chat*/
   overflow-y: scroll;
 }
 
@@ -195,10 +197,10 @@ small.watch-date {
 }
 
 
-
 .form-container {
-  margin-top: 10px;
+  margin-top: auto;
   display: flex;
+  align-items: center;
 }
 
 .input-box {
@@ -228,8 +230,8 @@ small.watch-date {
 
 /* Calendar.css */
 .day {
-  border: 1px solid #ccc;
-  background-color: #b9b9b9;
+  border: 1px solid #000000;
+  background-color: #fff7e8;
   padding: 10px;
 }
 
@@ -237,10 +239,49 @@ small.watch-date {
   background-color: #060a3c;
 }
 
-.date-button {
-  width: 10%;
-  height: 10%;
+.bottone-today{
+  pointer-events: none; /* Impedisce al bottone di essere cliccato */
+  background-color: #060a3c;
+  border: #060a3c;
 }
+
+.bottone-selected{
+  margin-left: 5px;
+  pointer-events: none; /* Impedisce al bottone di essere cliccato */
+  background-color: #a88c66;
+  border: #a88c66;
+}
+
+.date-button {
+  pointer-events: none; /* Impedisce al bottone di essere cliccato */
+  width: 15%;
+  height: 20%;
+  background-color: lightgrey; /* Imposta il colore di base del bottone */
+  color: black; /* Imposta il colore del testo */
+}
+
+.date-button:hover {
+  width: 15%;
+  height: 20%;
+  background-color: lightgrey; /* Imposta il colore di base del bottone */
+  color: black; /* Imposta il colore del testo */
+}
+
+.date-button-selected {
+  pointer-events: none; /* Impedisce al bottone di essere cliccato */
+  width: 15%;
+  height: 20%;
+  background-color: #a88c66; /* Imposta il colore di base del bottone */
+  color: white; /* Imposta il colore del testo */
+}
+
+.date-button-selected:hover {
+  width: 15%;
+  height: 20%;
+  background-color: #a88c66; /* Imposta il colore di base del bottone */
+  color: white; /* Imposta il colore del testo */
+}
+
 .date-text {
   margin: auto;
   align-self: center;
@@ -260,6 +301,10 @@ small.watch-date {
 
 .modal-body {
   padding: 20px;
+}
+
+.riga-calendar{
+  height: 100px;
 }
 
 /* animazioni */

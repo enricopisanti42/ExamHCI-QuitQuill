@@ -154,16 +154,16 @@ const Calendar = () => {
         row.push(
           <Col key={`${i}-${j}`} className={`day ${
             date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear() ? 'current-day' : ''
-          }`}>
+          } riga-calendar`}
+          onClick={() => handleDateClick(date)} >
             {currentDate <= daysInMonth && (
               <Button
-                className={`date-button border rounded p-2 d-flex justify-content-center align-items-center ${
-                  date.getDate() === selectedDate.getDate() ? 'bg-primary text-white' : ''
-                }`}
-                onClick={() => handleDateClick(date)}
-              >
-                {currentDate}
-              </Button>
+              className={date.getDate() === selectedDate.getDate() ? 'date-button-selected border rounded p-2 d-flex justify-content-center align-items-center' : 'date-button border rounded p-2 d-flex justify-content-center align-items-center'}
+              onClick={() => handleDateClick(date)}
+            >
+              {currentDate}
+            </Button>
+            
             )}
             {(date.getDate() === 5 && date.getMonth() === 1 && date.getFullYear() === 2024) || (date.getDate() === 12 && date.getMonth() === 1 && date.getFullYear() === 2024) ? (
               <span role="img" aria-label="trophy" style={{ marginLeft: '30px', fontSize: '2em' }}>🏆</span>
@@ -232,8 +232,16 @@ const Calendar = () => {
           <Button
             variant="primary"
             onClick={() => setSelectedDate(new Date())}
+            className = "bottone-today"
           >
             Today
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => setSelectedDate(new Date())}
+            className = "bottone-selected"
+          >
+            Selected
           </Button>
         </Col>
       </Row>    
@@ -273,6 +281,11 @@ const Calendar = () => {
         </Button>
       </Modal.Footer>
     </Modal>
+    <br></br>
+    <Row>
+    <span role="img" aria-label="trophy" style={{fontSize: '2em' }}>🏆 In this date you achieved a milestone</span>
+    <span role="img" aria-label="book" style={{fontSize: '2em' }}>📖 In this date you wrote a report</span>
+    </Row>
     </Container>
   );
 };
