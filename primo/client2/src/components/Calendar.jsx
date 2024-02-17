@@ -82,20 +82,18 @@ const Calendar = () => {
         break;
     }
     
-    console.log(reports);
-
     const getMoodIcon = (mood) => {
       switch (mood) {
         case 0:
-          return <i className="bi bi-emoji-frown" style={{ fontSize: '1.5rem' }}></i>; // sad face
+          return <span role="img" aria-label="sad face">😢</span>; // sad face
         case 1:
-          return <i className="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // neutral face
+          return <span role="img" aria-label="neutral face">🙂</span>; // neutral face
         case 2:
-          return <i className="bi bi-emoji-smile" style={{ fontSize: '1.5rem' }}></i>; // happy face
+          return <span role="img" aria-label="happy face">😊</span>; // happy face
         default:
-          return <i className="bi bi-emoji-neutral" style={{ fontSize: '1.5rem' }}></i>; // Default to neutral face
+          return <span role="img" aria-label="neutral face">🙂</span>; // Default to neutral face
       }
-    };
+    }; 
     return (
       <div>
         <h3>Reports written on that date:</h3>
