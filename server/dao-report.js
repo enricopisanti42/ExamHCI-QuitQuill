@@ -23,8 +23,7 @@ exports.listReports = () => {
 
 exports.createReport = (report) => {
   return new Promise((resolve, reject) => {
-
-    const currentTime = dayjs().format('h:mm A');
+    const currentTime = dayjs().format("h:mm A");
 
     const sql =
       "INSERT INTO Reports(Mood, Smoked, Feelings, Time) VALUES(?,?,?,?)";
@@ -36,7 +35,7 @@ exports.createReport = (report) => {
           reject(err);
         }
 
-        resolve();
+        resolve({ message: "ok" });
       }
     );
   }).catch(() => "ERRORE!!");
@@ -56,7 +55,7 @@ exports.updateReport = async (id, report) => {
         if (this.changes !== 1) {
           reject({ error: "No report was updated." });
         } else {
-          resolve({message : "ok"});
+          resolve({ message: "ok" });
         }
       }
     );

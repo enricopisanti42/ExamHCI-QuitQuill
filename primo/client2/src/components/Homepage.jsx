@@ -278,7 +278,7 @@ const MoodForm = (props) => {
     setShowModalSend(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit =async (event) => {
     event.preventDefault();
     console.log('Mood:', mood);
     console.log('Answer:', answer);
@@ -292,8 +292,8 @@ const MoodForm = (props) => {
         Feelings: text    
       };
 
-      API.modifyReport(newReport);
-
+      await API.modifyReport(newReport);
+      console.log("finito il modfy");
       props.setSelectedReport(null);
 
     }else{
@@ -303,7 +303,8 @@ const MoodForm = (props) => {
         Feelings: text    
       };
 
-      API.sendReport(newReport);
+      await API.sendReport(newReport);
+      console.log("finito send");
     }
 
     setShowModalSend(false);
