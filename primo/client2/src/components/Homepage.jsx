@@ -74,7 +74,7 @@ const ReportsList = ({ reports , cambiostato }) => {
           handleClose={handleCloseEditModal}
           cambiostato={cambiostato}
         />
-      )}
+      )} 
     </div>
   );
 };
@@ -360,10 +360,28 @@ function Homelayout(props) {
   const [money, setMoney] = useState(0);
   const [reports,setRepo]=useState([]);
   const [addedRepo,setaddedRepo]=useState(0);
+  const [showHome, setshowHome] = useState(true);
+  const [showForm, setshowForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
   const handleupdatereport = () => {
     setaddedRepo(prevAddedRepo=>prevAddedRepo + 1)
   }
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  /*
+  const handleNewReport = () => {
+    console.log("okay");
+  }
+
+  const handleTornaIndietro = () => {
+    console.log("okay");
+  }
+*/
 
   useEffect(() => {
 
@@ -384,6 +402,15 @@ function Homelayout(props) {
 
   return (
     <Container>
+      <Row className="mt-3">
+        {showForm && (
+            <Col>
+              <Button variant="outline-primary" onClick={() => {setShowModal(true)}}>Torna indietro</Button>
+            </Col>
+        )}
+      </Row>
+      {showHome && (
+        <>
     <Row>
       <Col><b>Since you stopped:</b></Col>
       <Col><b>Money saved:</b></Col>
@@ -411,11 +438,180 @@ function Homelayout(props) {
     <Row>
     <ReportsList reports={reports} cambiostato={handleupdatereport}/>
     </Row>
-
+    <Row className="mt-3">
+        <Col className="text-center">
+            <Button
+              variant="outline-primary"
+              onClick={() => {setshowHome(false); setshowForm(true)}}
+            >
+              Track your day
+            </Button>
+        </Col>
+      </Row>
+      </>)}
+      { showForm && (
+        <>
+        <Row className="text-center">
+        <h1>How is your day going?</h1>
+        </Row>
+        <Row className="text-center">
+        <MoodForm setshowHome={setshowHome} setshowForm={setshowForm} cambiostato={handleupdatereport}></MoodForm>
+        </Row>
+        </>
+      )}
+      {showModal && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{"Are you sure to go back?"}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>All the unsaved changes will be lost.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => {setshowHome(true); setshowForm(false); setShowModal(false);}}>
+             Go back
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
   </Container>
   );
 }
   
+const MoodForm = (props) => {
+  const [mood, setMood] = useState(null);
+  const [answer, setAnswer] = useState(null);
+  const [text, setText] = useState('');
+  const [showModalSend, setShowModalSend] = useState(false);
 
+  const handleCloseModal = () => {
+    setShowModalSend(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Qui puoi gestire l'invio del form e i dati inseriti dall'utente
+    console.log('Mood:', mood);
+    console.log('Answer:', answer);
+    console.log('Text:', text);
+    const newReport = {
+      Mood: mood,
+      Smoked: answer,
+      Feelings: text    
+    };
+
+    API.sendReport(newReport);
+
+    setShowModalSend(false);
+    setMood('');
+    setAnswer('');
+    setText('');
+
+    props.setshowForm(false);
+    props.setshowHome(true);
+    props.cambiostato();
+
+  };
+
+  return (
+    <>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <br></br><br></br>
+        <h3>What is your mood?</h3>
+        <br></br>
+        <div className="mood-buttons">
+          <button
+            type="button"
+            className={`mood-button ${mood === '0' ? 'selected' : ''}`}
+            onClick={() => setMood('0')}
+          >
+            😢
+          </button>
+          <button
+            type="button"
+            className={`mood-button ${mood === '1' ? 'selected' : ''}`}
+            onClick={() => setMood('1')}
+          >
+            🙂
+          </button>
+          <button
+            type="button"
+            className={`mood-button ${mood === '2' ? 'selected' : ''}`}
+            onClick={() => setMood('2')}
+          >
+            😊
+          </button>
+        </div>
+      </div>
+      <div>
+      <br></br>
+        <h3>Were you tempted to smoke?</h3>
+        <br></br>
+        <div className="radio-container">
+        <label className="radio-label">
+          <input
+            className="radio-input"
+            type="radio"
+            value="1"
+            checked={answer === '1'}
+            onChange={(e) => setAnswer(e.target.value)}
+          />
+          Yes
+        </label>
+        <label className="radio-label">
+          <input
+            className="radio-input"
+            type="radio"
+            value="0"
+            checked={answer === '0'}
+            onChange={(e) => setAnswer(e.target.value)}
+          />
+          No
+        </label>
+      </div>
+      </div>
+      <div className="textarea-container">
+        <br></br>
+        <h3>Express your feelings</h3>
+        <br></br>
+        <textarea
+          className="textarea-input"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        ></textarea>
+      </div>
+      <br></br>
+      <Button
+              variant="outline-primary"
+              onClick={() => {setShowModalSend(true);}}
+            >
+              Save
+      </Button>
+    </form>
+    {showModalSend && (
+      <Modal show={showModalSend} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{"Are you sure send the report?"}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>The report will be modifiable in the home page.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+           Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    )}
+    </>
+  );
+};
 
 export {Homelayout};

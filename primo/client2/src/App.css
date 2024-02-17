@@ -112,6 +112,44 @@ small.watch-date {
   color: red;
 }
 
+/* CSS PER FORM NEW REPORT*/
+
+.mood-buttons {
+  display: flex;
+  margin-left: 42%;
+}
+
+.mood-button {
+  font-size: 2em;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: lightblue;
+  border-radius: 50%;
+}
+
+.radio-label {
+  margin-right: 20px; /* Aggiungi spazio tra le label */
+  font-size: 1.2em; /* Aumenta la dimensione del testo */
+}
+
+.radio-input {
+  margin-right: 10px; /* Aggiungi spazio tra i radio button */
+  transform: scale(1.5); /* Aumenta la dimensione dei radio button */
+}
+
+.textarea-container {
+  margin-top: 10px;
+}
+
+.textarea-input {
+  width: 60%; /* Imposta la larghezza al 100% del contenitore */
+  height: 80px; /* Imposta l'altezza desiderata */
+  padding: 10px; /* Aggiunge un padding al testo all'interno del textarea */
+  font-size: 1.2em; /* Aumenta la dimensione del testo */
+}
 
 
 /*

@@ -94,6 +94,18 @@ const getReports = async (booking) => {
   return getJson(fetch(`${SERVER_URL}reports`));
 };
 
+const sendReport = async (report) => {
+  return getJson(
+    fetch(`${SERVER_URL}report/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(report),
+    })
+  );
+};
+
 const deleteBooking = async (bookingid) => {
   return getJson(
     fetch(`${SERVER_URL}bookings/${bookingid}`, {
@@ -137,5 +149,6 @@ const API = {
   fetchMilestones,
   fetchTime,
   modifyReport,
+  sendReport,
 };
 export default API;

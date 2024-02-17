@@ -71,9 +71,9 @@ app.get("/api/reports", (req, res) => {
 
 app.post("/api/report/add", async (req, res) => {
   const report = {
-    mood: req.body.mood,
-    smoked: req.body.smoked,
-    feelings: req.body.feelings,
+    Mood: req.body.Mood,
+    Smoked: req.body.Smoked,
+    Feelings: req.body.Feelings,
   };
 
   try {

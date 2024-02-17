@@ -23,13 +23,14 @@ exports.listReports = () => {
 
 exports.createReport = (report) => {
   return new Promise((resolve, reject) => {
-    const today = dayjs().format("MMMM D, YYYY h:mm A");
+
+    const currentTime = dayjs().format('h:mm A');
 
     const sql =
       "INSERT INTO Reports(Mood, Smoked, Feelings, Time) VALUES(?,?,?,?)";
     db.run(
       sql,
-      [report.mood, report.smoked, report.feelings, today],
+      [report.Mood, report.Smoked, report.Feelings, currentTime],
       function (err) {
         if (err) {
           reject(err);
