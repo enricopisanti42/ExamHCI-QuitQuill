@@ -166,7 +166,7 @@ const FakeChat = (props) => {
     event.preventDefault();
     if (newMessage.trim() !== '') {
       const updatedMessage =
-        { sender: 'User', text: newMessage };
+        { sender: 'David87', text: newMessage };
        API.sendChatMessage(updatedMessage);
       setNewMessage('');
       props.setposted(prev=>prev+1);

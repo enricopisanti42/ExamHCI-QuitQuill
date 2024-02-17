@@ -14,6 +14,7 @@ import { ChatApp} from "./Expter";
 import { Milestone } from "./Milestone";
 
 import API from "../API";
+import { Chatexpert } from "./ChatExpert";
 function DefaultLayout(props) {
   const { filterLabel } = useParams();
   const [prevFilterLabel, setPrevFilterLabel] = useState('');
@@ -42,7 +43,7 @@ function DefaultLayout(props) {
   }, [currentFilterLabel]);
 
   useEffect(() => {
-    if (currentFilterLabel === 'askexperts') {
+    if (currentFilterLabel === 'askexperts'|| currentFilterLabel==='chatexpert') {
       setSlideDirection('slide-out-left');
     } else {
       setSlideDirection('slide-in-right');
@@ -79,25 +80,32 @@ function DefaultLayout(props) {
       <Col sm={4} className={`FakeChat ${slideDirection}`}>
         <FakeChat posted={props.posted} setposted={props.setposted}/>
       </Col>
-      {filterLabel === 'askexperts' ? (
-        <Col
-          sm={8}
-          className={`Outlet ${
-            slideDirection === 'slide-in-right' ? 'slide-in-left' : 'slide-out-right'
-          }`}
-        >
-          {componentToRender}
+      {filterLabel === 'chatexpert' ? (
+          <Col sm={12} >
+         <Chatexpert/>
         </Col>
       ) : (
-        <Col
-          sm={8}
-          className={`Outlet ${
-            slideDirection === 'slide-in-right' ? 'slide-in-left' : 'slide-out-right'
-          }`}
-        >
-          <Outlet />
-        </Col>
-      )}
+        <>
+        {filterLabel === 'askexperts' ? (
+          <Col
+            sm={8}
+            className={`Outlet ${
+              slideDirection === 'slide-in-right' ? 'slide-in-left' : 'slide-out-right'
+            }`}
+          >
+            {componentToRender}
+          </Col>
+        ) : (
+          <Col
+            sm={8}
+            className={`Outlet ${
+              slideDirection === 'slide-in-right' ? 'slide-in-left' : 'slide-out-right'
+            }`}
+          >
+            <Outlet />
+          </Col>
+        )}
+      </>)}
     </Row>
     </>
   );

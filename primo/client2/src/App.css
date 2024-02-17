@@ -67,6 +67,13 @@ color: black;
   font-size: 2.5cap;/* Center the navbar */
 }
 
+.navbar-user {
+ 
+  padding-right: 1px;
+
+  font-size: 2.5cap;/* Center the navbar */
+}
+
 .navbar-items:hover {
   font-weight:bold ;
 }
@@ -452,4 +459,12 @@ CCS PER PAGINA MILESTONE
 
 .trophy {
   padding: 10px;
+}
+
+.row-small{
+
+    max-height: 300px; /* Imposta l'altezza massima desiderata */
+    overflow-y: auto; /* Aggiunge una barra di scorrimento verticale se il contenuto supera l'altezza massima */
+
+  
 }

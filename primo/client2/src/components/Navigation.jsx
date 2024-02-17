@@ -17,7 +17,7 @@ const Navigation = (props) => {
       <Container fluid>
       
           <Col xs={12} sm={4}>
-            <Link style={{textDecoration: 'none'}} to="/">
+            <Link style={{textDecoration: 'none'}} to="/home">
               <Navbar.Brand className='logo'>
                 Quit Quill
               </Navbar.Brand>
@@ -28,6 +28,11 @@ const Navigation = (props) => {
           </Col>
       
       </Container>
+      <Navbar.Brand className='navbar-user'>
+                Hello David! 
+
+              </Navbar.Brand>
+              <i class="bi bi-person-circle navbar-user"></i>
     </Navbar>
   );
 }

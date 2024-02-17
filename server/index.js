@@ -8,6 +8,7 @@ const chatDao = require("./dao-chat");
 const reportDao = require("./dao-report");
 const timeDao = require("./dao-time");
 const milestoneDao = require("./dao-milestone");
+const expertDao = require("./dao-expertchat");
 
 // init express and set-up the middlewares ***/
 const app = express();
@@ -35,6 +36,13 @@ app.get("/api/chat", (req, res) => {
     .catch((err) => res.status(500).json(err)); // always return a json and an error message
 });
 
+app.get("/api/chatexpert", (req, res) => {
+  expertDao
+    .listMessagesExpert()
+    .then((messages) => res.status(200).json(messages))
+    .catch((err) => res.status(500).json(err)); // always return a json and an error message
+});
+
 //Create a new page, by providing all relevant information.
 // POST /api/pages
 
@@ -47,6 +55,23 @@ app.post("/api/chat/add", async (req, res) => {
   console.log(message);
   try {
     const result1 = await chatDao.createMessage(message);
+    return res.status(201).json(result1);
+  } catch (err) {
+    res.status(500).json({
+      error: `Database error during the creation of new message: ${err}`,
+    });
+  }
+});
+
+app.post("/api/chatexpert/add", async (req, res) => {
+  const message = {
+    text: req.body.text,
+    sender: req.body.sender,
+  };
+
+  console.log(message);
+  try {
+    const result1 = await expertDao.createMessageExpert(message);
     return res.status(201).json(result1);
   } catch (err) {
     res.status(500).json({
@@ -87,8 +112,6 @@ app.post("/api/report/add", async (req, res) => {
 });
 
 app.put("/api/report/:id", async (req, res) => {
-  
-
   // Is the id in the body equal to the id in the url?
   if (req.body.ID !== Number(req.params.id)) {
     return res.status(422).json({ error: "URL and body id mismatch" });
@@ -100,8 +123,6 @@ app.put("/api/report/:id", async (req, res) => {
     smoked: req.body.Smoked,
     feelings: req.body.Feelings,
   };
-
-
 
   try {
     const result1 = await reportDao.updateReport(report.id, report);

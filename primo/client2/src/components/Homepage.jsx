@@ -191,7 +191,7 @@ function Homelayout(props) {
       <Row className="mt-3">
         {showForm && (
             <Col>
-              <Button variant="outline-primary" onClick={() => {setShowModal(true)}}>Torna indietro</Button>
+              <Button variant="outline-primary" onClick={() => {setShowModal(true)}}>Go Back</Button>
             </Col>
         )}
       </Row>

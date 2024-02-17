@@ -13,6 +13,8 @@ import {
   ExpertsLayout,
 } from "./components/PageLayout";
 
+import { Chatexpert } from "./components/ChatExpert";
+
 import API from "./API";
 
 function App() {
@@ -51,6 +53,7 @@ function App() {
               path="/:filterLabel"
               element={<MainLayout filters={filters} posted={posted} setposted={setposted}/>}
             />
+            
           </Route>
         </Routes>
         <Toast
