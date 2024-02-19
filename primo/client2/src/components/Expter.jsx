@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import API from "../API";
 
-const ChatApp = () => {
+const ChatApp = (props) => {
   const [selectedDoctorType, setSelectedDoctorType] = useState(null);
   const [showPreviousChats, setShowPreviousChats] = useState(true);
   const [isNewChatStarted, setIsNewChatStarted] = useState(false);
   const [mostratutto, setmostratutto] = useState(true);
+  const [messages, setMessages] = useState([]);
   const [fakechatpartita, setFakechatpartita] = useState(false);
+  const [chatpassate, setChatPassate] = useState([]);
+  const [posted, setposted] = useState(0);
+  const [dottoreDB, setdottoreDB] = useState();
+  const [doc, setdoc] = useState();
 
   const doctorsType = [
     { id: 2, type: "Pneumologist" },
@@ -16,22 +22,44 @@ const ChatApp = () => {
   ];
   const [messaggigiusti, setmessaggigiusti] = useState([]);
 
-  const chatpassate = [
-    {
-      id: 3,
-      firstName: "Michael",
-      lastName: "Williams",
-      experienceYears: 8,
-      specialization: "Cardiologist",
-    },
-    {
-      id: 8,
-      firstName: "William",
-      lastName: "Wilson",
-      experienceYears: 14,
-      specialization: "Psychologist",
-    },
-  ];
+  const postata = () => {
+    setposted((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const messaggiDB = await API.getChatExpert();
+        setMessages(messaggiDB);
+
+        // Filtra solo i dottori dove chatpassate è uguale a 1 e rimuovi le ripetizioni
+        const chatPassateDottori = [
+          ...new Set(
+            messaggiDB
+              .filter((message) => message.chatpassata === 1)
+              .map((message) => message.dottore)
+          ),
+        ];
+
+        // Costruisci un array di oggetti chatpassate
+        const chatPassate = chatPassateDottori.map((dottore, index) => {
+          // Qui puoi aggiungere altre informazioni se necessario
+          return {
+            id: index + 1, // Id unico per ogni sender
+            doctor: dottore,
+            experienceYears: 8, // Aggiungi l'anno di esperienza qui se disponibile
+            specialization: "Cardiologist", // Aggiungi la specializzazione qui se disponibile
+          };
+        });
+
+        setChatPassate(chatPassate); // Imposta chatPassate con l'array di oggetti chatpassate
+      } catch (error) {
+        console.error("Errore durante il recupero dei messaggi:", error);
+      }
+    };
+
+    fetchData();
+  }, [posted]);
 
   const doctors = [
     {
@@ -163,49 +191,6 @@ const ChatApp = () => {
     // Add more doctors as needed
   ];
 
-  const messagesHeartIssue = [
-    {
-      sender: "User",
-      text: "Hello, doctor. I've been feeling some discomfort in my chest lately.",
-    },
-    {
-      sender: "Doctor",
-      text: "Hi there. I'm sorry to hear that. Can you describe the discomfort?",
-    },
-    {
-      sender: "User",
-      text: "It feels like a pressure or tightness in my chest, and sometimes it radiates to my left arm.",
-    },
-    {
-      sender: "Doctor",
-      text: "That sounds concerning. Have you experienced any shortness of breath or nausea along with it?",
-    },
-    {
-      sender: "User",
-      text: "Yes, I've noticed some shortness of breath, especially when I exert myself.",
-    },
-    {
-      sender: "Doctor",
-      text: "Okay. Given your symptoms, it's important to rule out any cardiac issues. I'd recommend coming in for an evaluation.",
-    },
-    {
-      sender: "User",
-      text: "Understood. Should I be worried about a heart attack?",
-    },
-    {
-      sender: "Doctor",
-      text: "While I can't diagnose without an examination, your symptoms are concerning. It's better to err on the side of caution.",
-    },
-    {
-      sender: "User",
-      text: "Thank you, doctor. I'll schedule an appointment right away.",
-    },
-    {
-      sender: "Doctor",
-      text: "You're welcome. Take care, and I'll see you soon.",
-    },
-  ];
-
   const handleDoctorClick = (doctorType) => {
     setSelectedDoctorType(doctorType);
     // Assicura che la visualizzazione delle chat passate venga mostrata se si seleziona un medico
@@ -218,12 +203,14 @@ const ChatApp = () => {
     setFakechatpartita(false);
     // Assicura che la visualizzazione delle chat passate venga mostrata se si seleziona un medico
   };
-  const handleNewChat = (doctorId) => {
-    console.log(doctorId);
-    doctorId == 3
-      ? setmessaggigiusti(messagesHeartIssue)
-      : setmessaggigiusti([]);
-    console.log(messaggigiusti);
+
+  const handleNewChat = (doctorname) => {
+
+    const filteredMessages = messages.filter(
+      (message) => message.dottore === doctorname && message.chatpassata === 1
+    );
+    setmessaggigiusti(filteredMessages);
+    setdottoreDB(doctorname);
     // Qui puoi gestire l'avvio di una nuova chat con il medico selezionato
     setIsNewChatStarted(true);
     setShowPreviousChats(false);
@@ -280,10 +267,14 @@ const ChatApp = () => {
               <ListGroup>
                 {chatpassate.map((doctor) => (
                   <ListGroup.Item key={doctor.id}>
-                    {doctor.firstName} {doctor.lastName}
+                    {doctor.doctor}
                     <Button
                       variant="success"
-                      onClick={() => handleNewChat(doctor.id)}
+                      onClick={() => {
+                        setdottoreDB(doctor.doctor);
+                        console.log(doctor.doctor);
+                        handleNewChat(doctor.doctor);
+                      }}
                       className="float-end"
                     >
                       riprendi chat
@@ -325,9 +316,22 @@ const ChatApp = () => {
             <ListGroup>
               {filteredDoctors.map((doctor) => (
                 <ListGroup.Item key={doctor.id}>
-                  Name:{doctor.firstName}
+                  <Row>
+                    <Col>Name:{doctor.firstName}</Col>
+                    <Col>Surname:{doctor.lastName}</Col>
+                  </Row>
+                  <Row>
+                    <Col>Years of experience: {doctor.experienceYears}</Col>
+                  </Row>
+
                   <Link to="/chatexpert">
-                    <Button variant="success" className="float-end">
+                    <Button
+                      variant="success"
+                      className="float-end"
+                      onClick={() =>
+                        props.cambiodottore(`Dr.${doctor.lastName}`)
+                      }
+                    >
                       Inizia chat
                     </Button>
                   </Link>
@@ -338,25 +342,58 @@ const ChatApp = () => {
         </Row>
       )}
 
-      {fakechatpartita && <ChatComponent messages={messaggigiusti} />}
+      {fakechatpartita && (
+        <ChatComponent
+          messages={messaggigiusti}
+          postata={postata}
+          dottoreDB={dottoreDB}
+        />
+      )}
     </Container>
   );
 };
 
 const ChatComponent = (props) => {
   const [messages, setMessages] = useState(props.messages);
+  const [posted, setposted] = useState(0);
+  const chatContainerRef = useRef(null);
 
   const [newMessage, setNewMessage] = useState("");
 
-  const handleSendMessage = (event) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const messaggiDB = await API.getChatExpert();
+
+        const filteredMessages = messaggiDB.filter(
+          (message) =>
+            message.dottore === props.dottoreDB && message.chatpassata === 1
+        );
+        setMessages(filteredMessages);
+      } catch (error) {
+        console.error("Errore durante il recupero dei messaggi:", error);
+      }
+    };
+
+    fetchData();
+  }, [posted]);
+
+  useEffect(() => {
+    // Scroll to the bottom when messages change
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [messages]);
+
+  const handleSendMessage = async (event) => {
     event.preventDefault();
     if (newMessage.trim() !== "") {
-      const updatedMessages = [
-        ...messages,
-        { sender: "User", text: newMessage },
-      ];
-      setMessages(updatedMessages);
+      const updatedMessage = {
+        sender: "David87",
+        text: newMessage,
+        chatpassata: 1,
+        dottore: props.dottoreDB,
+      };
       setNewMessage("");
+      API.sendChatExpert(updatedMessage).then(setposted((prev) => prev + 1));
     }
   };
 
@@ -364,11 +401,11 @@ const ChatComponent = (props) => {
     <div>
       {" "}
       {/* Applica la classe container-chat dal CSS fornito */}
-      <div className="message-container">
+      <div className="message-container  row-small" ref={chatContainerRef}>
         {messages.map((message, index) => (
           <div
             key={index}
-            className={` ${message.sender === "User" ? "user-message" : ""}`}
+            className={` ${message.sender === "David87" ? "user-message" : ""}`}
           >
             <div className="message-box">
               <div className="sender-info">

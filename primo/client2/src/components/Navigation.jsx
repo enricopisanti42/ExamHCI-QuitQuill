@@ -32,7 +32,7 @@ const Navigation = (props) => {
                 Hello David! 
 
               </Navbar.Brand>
-              <i class="bi bi-person-circle navbar-user"></i>
+              <i className="bi bi-person-circle navbar-user"></i>
     </Navbar>
   );
 }

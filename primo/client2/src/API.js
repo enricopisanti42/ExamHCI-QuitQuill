@@ -90,6 +90,34 @@ const sendChatMessage = async (message) => {
   );
 };
 
+const getChatExpert = async () => {
+  return getJson(fetch(`${SERVER_URL}chatexpert`));
+};
+
+const sendChatExpert = async (message) => {
+  console.log(message);
+  return getJson(
+    fetch(`${SERVER_URL}chatexpert/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    })
+  );
+};
+
+const modifyExpertChat = async (doctor) => {
+  return getJson(
+    fetch(`${SERVER_URL}chatexpert/modify/${doctor}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  );
+};
+
 const getReports = async (booking) => {
   return getJson(fetch(`${SERVER_URL}reports`));
 };
@@ -117,14 +145,13 @@ const deleteBooking = async (bookingid) => {
 
 const fetchMilestones = async () => {
   return getJson(fetch(`${SERVER_URL}milestones`));
-}
+};
 
 const fetchTime = async () => {
   return getJson(fetch(`${SERVER_URL}time`));
-}
+};
 
 const modifyReport = async (report) => {
-  
   return getJson(
     fetch(`${SERVER_URL}report/${report.ID}`, {
       method: "PUT",
@@ -135,8 +162,6 @@ const modifyReport = async (report) => {
     })
   );
 };
-
-
 
 const API = {
   logIn,
@@ -150,5 +175,8 @@ const API = {
   fetchTime,
   modifyReport,
   sendReport,
+  getChatExpert,
+  sendChatExpert,
+  modifyExpertChat,
 };
 export default API;

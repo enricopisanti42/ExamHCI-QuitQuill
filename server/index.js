@@ -67,6 +67,8 @@ app.post("/api/chatexpert/add", async (req, res) => {
   const message = {
     text: req.body.text,
     sender: req.body.sender,
+    chatpassata: req.body.chatpassata,
+    dottore: req.body.dottore,
   };
 
   console.log(message);
@@ -77,6 +79,19 @@ app.post("/api/chatexpert/add", async (req, res) => {
     res.status(500).json({
       error: `Database error during the creation of new message: ${err}`,
     });
+  }
+});
+
+app.put("/api/chatexpert/modify/:doctor", async (req, res) => {
+  // Is the id in the body equal to the id in the url?
+
+  try {
+    const result1 = await expertDao.updateChatNuova(req.params.doctor);
+    res.status(200).json(result1);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: `Database error during the update of a report: ${err}` });
   }
 });
 

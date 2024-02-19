@@ -20,8 +20,11 @@ function DefaultLayout(props) {
   const [prevFilterLabel, setPrevFilterLabel] = useState('');
   const [currentFilterLabel, setCurrentFilterLabel] = useState('');
   const [delayedRender, setDelayedRender] = useState(false); // Stato per controllare il ritardo nella renderizzazione
+  const [dottore, setDottore] = useState();
 
-
+  const cambiodottore = (dottorenuovo)=>{
+    setDottore(dottorenuovo);
+  }
 
   useEffect(() => {
     setPrevFilterLabel(currentFilterLabel); // Salva il valore precedente di filterLabel
@@ -50,7 +53,7 @@ function DefaultLayout(props) {
     }
   }, [currentFilterLabel]);
 
-  console.log(currentFilterLabel, prevFilterLabel);
+
 
   let componentToRender;
 
@@ -68,12 +71,14 @@ function DefaultLayout(props) {
       break;
   }
 
+
+
   return (
     <>
     {/* Renderizza l'elemento Row di ChatApp solo quando delayedRender è true */}
     {delayedRender && filterLabel === "askexperts" && (
       <Row className="below-nav chatapp-visible">
-        <ChatApp />
+        <ChatApp cambiodottore={cambiodottore}/>
       </Row>
     )}
     <Row className="below-nav">
@@ -82,7 +87,7 @@ function DefaultLayout(props) {
       </Col>
       {filterLabel === 'chatexpert' ? (
           <Col sm={12} >
-         <Chatexpert/>
+         <Chatexpert dottore={dottore}/>
         </Col>
       ) : (
         <>
