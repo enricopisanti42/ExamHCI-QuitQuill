@@ -164,13 +164,13 @@ const Calendar = () => {
             
             )}
             {(date.getDate() === 5 && date.getMonth() === 1 && date.getFullYear() === 2024) || (date.getDate() === 12 && date.getMonth() === 1 && date.getFullYear() === 2024) ? (
-              <span role="img" aria-label="trophy" style={{ marginLeft: '30px', fontSize: '2em' }}>🏆</span>
+              <span role="img" aria-label="trophy" style={{ marginLeft: '30px', fontSize: '1.5em' }}>🏆</span>
             ) : null}
 
             {(date.getDate() === 5 && date.getMonth() === 1 && date.getFullYear() === 2024) || (date.getDate() === 6 && date.getMonth() === 1 && date.getFullYear() === 2024) || 
              (date.getDate() === 9 && date.getMonth() === 1 && date.getFullYear() === 2024) || (date.getDate() === 12 && date.getMonth() === 1 && date.getFullYear() === 2024)
             ? (
-              <span role="img" aria-label="book" style={{ marginLeft: '15px', fontSize: '2em' }}>📖</span>
+              <span role="img" aria-label="book" style={{ marginLeft: '15px', fontSize: '1.5em' }}>📖</span>
             ) : null}
             
           </Col>

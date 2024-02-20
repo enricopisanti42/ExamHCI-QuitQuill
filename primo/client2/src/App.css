@@ -54,12 +54,13 @@ color: black;
   border-radius: 10px;
 }
 .repo-container {
-  height: 150px;
+  height: 120px;
   background-color: aliceblue;
   border-radius: 10px;
   margin: auto;
   padding: 20px;
 }
+
 
 .navbar-items {
   margin-left: 1.5rem; 
@@ -201,7 +202,7 @@ small.watch-date {
 }
 
 .message-container {
-  height: 660px;    /* Da modificare questo per la lunghezza della chat*/
+  height: 450px;    /* Da modificare questo per la lunghezza della chat*/
   overflow-y: scroll;
 }
 
@@ -263,6 +264,18 @@ small.watch-date {
   border-radius: 5px;
   cursor: pointer;
 }
+.send-button-expert{
+  background-color: #007bff;
+  padding: 0.5em 1em; /* Usa em per il padding per scalabilità */
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: auto; /* Oppure puoi specificare una larghezza, es. 10em */
+  height: auto; /* L'altezza si adatterà al contenuto */
+  font-size: 1rem; /* Aggiusta questa dimensione per scalare il bottone */
+}
+
 
 .community{
     text-align: center;
@@ -298,30 +311,30 @@ small.watch-date {
 
 .date-button {
   pointer-events: none; /* Impedisce al bottone di essere cliccato */
-  width: 15%;
-  height: 20%;
+  width: 10%;
+  height: 15%;
   background-color: lightgrey; /* Imposta il colore di base del bottone */
   color: black; /* Imposta il colore del testo */
 }
 
 .date-button:hover {
-  width: 15%;
-  height: 20%;
+  width: 10%;
+  height: 15%;
   background-color: lightgrey; /* Imposta il colore di base del bottone */
   color: black; /* Imposta il colore del testo */
 }
 
 .date-button-selected {
   pointer-events: none; /* Impedisce al bottone di essere cliccato */
-  width: 15%;
-  height: 20%;
+  width: 10%;
+  height: 15%;
   background-color: #a88c66; /* Imposta il colore di base del bottone */
   color: white; /* Imposta il colore del testo */
 }
 
 .date-button-selected:hover {
-  width: 15%;
-  height: 20%;
+  width: 10%;
+  height: 15%;
   background-color: #a88c66; /* Imposta il colore di base del bottone */
   color: white; /* Imposta il colore del testo */
 }
@@ -348,8 +361,9 @@ small.watch-date {
 }
 
 .riga-calendar{
-  height: 100px;
+  height: 65px;
 }
+
 
 /* animazioni */
 
@@ -411,22 +425,13 @@ small.watch-date {
 CCS PER PAGINA MILESTONE
 */
 
-.colonnaMiles{
-  margin-top: 20px;
-  margin-left: 20px;
-}
-
-.colonnaMiles2{
-  margin-top: 20px;
-}
-
 .milestone-container {
-  font-size: 22px; /* Dimensione del carattere delle milestone */
+  font-size: 20px; /* Dimensione del carattere delle milestone */
 }
 
 .milestone-type {
-  margin-bottom: 50px; /* Spazio tra i tipi di milestone */
-  width: 600px;
+  margin-bottom: 30px; /* Spazio tra i tipi di milestone */
+  width: 400px;
 }
 
 .milestone-item {
@@ -463,7 +468,7 @@ CCS PER PAGINA MILESTONE
 
 .row-small{
 
-    max-height: 300px; /* Imposta l'altezza massima desiderata */
+    max-height: 600px; /* Imposta l'altezza massima desiderata */
     overflow-y: auto; /* Aggiunge una barra di scorrimento verticale se il contenuto supera l'altezza massima */
 
   

@@ -292,19 +292,19 @@ const Chatexpert = (props) => {
     }, [messages]);
 
     return (
-        <Container>
+        <Container className='row-small'>
             <Row className="mt-1">
                 <Col>
                     <Link to="/askexperts">
                         <Button variant="outline-primary" onClick={handleTornaIndietro}>
-                            Torna indietro
+                            Go Back
                         </Button>
                     </Link>
                 </Col>
             </Row>
             <Row>
                 <div>
-                    <div className="message-container row-small" ref={chatContainerRef}>
+                    <div className="message-container " ref={chatContainerRef}>
                         {messages
                             .filter(message => message.chatpassata === 0)
                             .map((message, index) => (
@@ -319,15 +319,15 @@ const Chatexpert = (props) => {
                                 </div>
                             ))}
                     </div>
-                    <form onSubmit={handleSendMessage} className="form-container">
+                    <form onSubmit={handleSendMessage} className="form-container ">
                         <input
                             type="text"
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             className="input-box"
-                            placeholder="Scrivi un messaggio..."
+                            placeholder="Write a message..."
                         />
-                        <button type="submit" className="send-button">
+                        <button type="submit" className="send-button-expert">
                             <i className="bi bi-send-fill"></i>
                         </button>
                     </form>

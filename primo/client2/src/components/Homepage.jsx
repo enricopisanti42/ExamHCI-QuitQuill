@@ -40,7 +40,7 @@ const ReportsList = (props) => {
 
   return (
     <div>
-      <h3>Reports:</h3>
+     
       <ul>
         {props.reports.map((report) => (
           <Container className='repo-container' key={report.id}>

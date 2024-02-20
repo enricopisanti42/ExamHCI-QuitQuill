@@ -224,7 +224,7 @@ const ChatApp = (props) => {
     : [];
 
   return (
-    <Container>
+    <Container className="row-small">
       <Row className="mt-3">
         {isNewChatStarted && (
           <Col>
@@ -234,12 +234,12 @@ const ChatApp = (props) => {
                 handleTornaIndietro();
               }}
             >
-              Torna indietro
+              Go Back
             </Button>
           </Col>
         )}
       </Row>
-      <Row className="mt-3">
+      <Row className="mt-3" >
         <Col className="text-center">
           {!isNewChatStarted && (
             <Button
@@ -249,7 +249,7 @@ const ChatApp = (props) => {
                 setIsNewChatStarted(true);
               }}
             >
-              Avvia una nuova chat
+              Start a new Chat
             </Button>
           )}
         </Col>
@@ -259,10 +259,10 @@ const ChatApp = (props) => {
         <>
           <Row className="mt-3 text-center">
             <Col>
-              <h2>Chat Passate</h2>
+              <h2>Previous Chat</h2>
             </Col>
           </Row>
-          <Row className="mt-3">
+          <Row className="mt-3 ">
             <Col sm={8} className="mx-auto">
               <ListGroup>
                 {chatpassate.map((doctor) => (
@@ -277,7 +277,7 @@ const ChatApp = (props) => {
                       }}
                       className="float-end"
                     >
-                      riprendi chat
+                      Open Chat
                     </Button>
                   </ListGroup.Item>
                 ))}
@@ -291,7 +291,7 @@ const ChatApp = (props) => {
         <>
           <Row className="mt-3 text-center">
             <Col>
-              <h2>Scegli il tipo di medico</h2>
+              <h2>Choose an expert</h2>
             </Col>
           </Row>
           <Row className="mt-3">
@@ -312,18 +312,16 @@ const ChatApp = (props) => {
       {selectedDoctorType && !showPreviousChats && isNewChatStarted && (
         <Row className="mt-3">
           <Col>
-            <h3>Medici di {selectedDoctorType}</h3>
+            <h3>{selectedDoctorType}s</h3>
+            <br></br>
             <ListGroup>
               {filteredDoctors.map((doctor) => (
                 <ListGroup.Item key={doctor.id}>
                   <Row>
-                    <Col>Name:{doctor.firstName}</Col>
-                    <Col>Surname:{doctor.lastName}</Col>
-                  </Row>
-                  <Row>
+                    <Col>Name: {doctor.firstName}</Col>
+                    <Col>Surname: {doctor.lastName}</Col>
                     <Col>Years of experience: {doctor.experienceYears}</Col>
-                  </Row>
-
+                    <Col>
                   <Link to="/chatexpert">
                     <Button
                       variant="success"
@@ -332,9 +330,11 @@ const ChatApp = (props) => {
                         props.cambiodottore(`Dr.${doctor.lastName}`)
                       }
                     >
-                      Inizia chat
+                      Start chat
                     </Button>
                   </Link>
+                  </Col>
+                  </Row>
                 </ListGroup.Item>
               ))}
             </ListGroup>
@@ -407,7 +407,7 @@ const ChatComponent = (props) => {
             key={index}
             className={` ${message.sender === "David87" ? "user-message" : ""}`}
           >
-            <div className="message-box">
+            <div className="message-box ">
               <div className="sender-info">
                 <i className="icon bi bi-person-fill"></i>
                 {message.sender}
@@ -423,9 +423,9 @@ const ChatComponent = (props) => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           className="input-box"
-          placeholder="Scrivi un messaggio..."
+          placeholder="Write a message..."
         />
-        <button type="submit" className="send-button">
+        <button type="submit" className="send-button-expert">
           <i className="bi bi-send-fill"></i>
         </button>
       </form>
