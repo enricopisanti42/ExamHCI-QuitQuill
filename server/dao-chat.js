@@ -20,6 +20,25 @@ exports.listMessages = () => {
   });
 };
 
+exports.deleteMsg = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    // Verifica se esiste un report con l'ID specificato
+
+    const sql = "DELETE FROM Chat WHERE ID=?";
+    
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+      }
+      if (this.changes === 0) {
+        reject({ error: "No message was deleted." });
+      } else {
+        resolve(null);
+      }
+    });
+  });
+};
+
 exports.createMessage = (message) => {
   console.log(message);
   return new Promise((resolve, reject) => {
@@ -29,7 +48,7 @@ exports.createMessage = (message) => {
         reject(err);
       }
       console.log("eseguito");
-      resolve();
+      resolve({message: "ok" });
     });
   }).catch(() => "ERRORE!!");
 };

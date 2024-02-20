@@ -118,7 +118,7 @@ export { FakeChat};
 
 */
 
-
+/*
 
 import React, { useState, useRef, useEffect } from 'react';
 import API from '../API';
@@ -204,6 +204,139 @@ const FakeChat = (props) => {
         <i className="bi bi-send-fill"></i>
         </button>
       </form>
+    </div>
+  );
+};
+
+export { FakeChat };
+
+*/
+import React, { useState, useRef, useEffect } from 'react';
+import API from '../API';
+import { Modal, Table, Form, Button,Container,Row,Col } from 'react-bootstrap/'
+
+const ChatMessage = ({ sender, text, onDelete,id }) => (
+  <div className="message">
+    <div className="message-box">
+      <div className="sender-info">
+        <i className="icon bi bi-person-fill"></i>
+        {sender}
+        {sender === 'David87' && (
+          <button onClick={() => onDelete(id)}>X</button>
+        )}
+      </div>
+      <div className="message-text">{text}</div>
+    </div>
+  </div>
+);
+
+
+
+const FakeChat = (props) => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const chatContainerRef = useRef(null);
+  const [messageToDelete, setMessageToDelete] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [idDeleteMsg,setDeleteMsg]= useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const messaggiDB = await API.getChatMessage();
+        setMessages(messaggiDB);
+      } catch (error) {
+        console.error("Errore durante il recupero dei messaggi:", error);
+      }
+    };
+
+    fetchData();
+  }, [props.posted]);
+
+  const mostrmodale=(id) =>{
+    setShowModal(true);
+    setDeleteMsg(id);
+  }
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleSendMessage = (event) => {
+    event.preventDefault();
+    if (newMessage.trim() !== '') {
+      const updatedMessage = { sender: 'David87', text: newMessage };
+      API.sendChatMessage(updatedMessage);
+      setNewMessage('');
+      props.setposted(prev => prev + 1);
+    }
+  };
+
+  const handleDeleteMessage = async () => {
+    try {
+      console.log(idDeleteMsg)
+      await API.deleteChatMessage(idDeleteMsg);
+      props.setposted(prev => prev + 1);
+      setShowModal(false);
+    } catch (error) {
+      console.error("Errore durante l'eliminazione del messaggio:", error);
+    }
+  };
+
+  useEffect(() => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [messages]);
+
+  return (
+    <div className="container-chat fixed-chat">
+      <div className='community'>
+        <p>Community</p>
+      </div>
+      <div ref={chatContainerRef} className="message-container">
+        {messages.map((message, index) => (
+          <div className="message">
+          <div className="message-box">
+            <div className="sender-info">
+              <i className="icon bi bi-person-fill"></i>
+              {message.sender}
+              {message.sender === 'David87' && (
+                <button onClick={() => mostrmodale(message.ID)}>X</button>
+              )}
+            </div>
+            <div className="message-text">{message.Text}</div>
+          </div>
+        </div>
+        ))}
+      </div>
+      <form onSubmit={handleSendMessage} className="form-container">
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => { setNewMessage(e.target.value) }}
+          className="input-box"
+          placeholder="Type your message..."
+        />
+        <button type="submit" className="send-button">
+          <i className="bi bi-send-fill"></i>
+        </button>
+      </form>
+      {showModal && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{"Are you sure to delete the report?"}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>If you press delete, the report will no longer be available:</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+            <Button variant="danger" onClick={handleDeleteMessage}>
+            Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 };

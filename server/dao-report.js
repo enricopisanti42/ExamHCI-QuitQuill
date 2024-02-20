@@ -61,3 +61,65 @@ exports.updateReport = async (id, report) => {
     );
   });
 };
+
+
+/* exports.deleteReport = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    const sql = "DELETE FROM Reports WHERE ID=?";
+    
+    console.log(id);
+
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+      }
+      if (this.changes !== 1) {
+        reject({ error: "No report was deleted." });
+      } else {
+        resolve({ message: "Report deleted successfully." });
+      }
+    });
+  });
+}; */
+exports.deleteReport = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    // Verifica se esiste un report con l'ID specificato
+    const reportExists = await getReportById(id); // Sostituire con la funzione che ottiene il report dal database per l'ID specificato
+
+    // Se il report non esiste, restituisci un messaggio di errore
+    if (!reportExists) {
+      return reject({ error: "Report not found." });
+    }
+
+    const sql = "DELETE FROM Reports WHERE ID=?";
+    
+    db.run(sql, [id], function (err) {
+      if (err) {
+        reject(err);
+      }
+      if (this.changes === 0) {
+        reject({ error: "No report was deleted." });
+      } else {
+        resolve(null);
+      }
+    });
+  });
+};
+
+
+const getReportById = async (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM Reports WHERE ID=?";
+    
+    db.get(sql, [id], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        // Se row è definito, significa che è stato trovato un report con quell'ID
+        const reportExists = !!row;
+        resolve(reportExists);
+      }
+    });
+  });
+};
+

@@ -244,6 +244,7 @@ const Chatexpert = (props) => {
 
     const handleTornaIndietro = () => {
         console.log("props.dottore è uguale", props.dottore);
+        console.log(props.dottore)
         API.modifyExpertChat(props.dottore);
     };
 

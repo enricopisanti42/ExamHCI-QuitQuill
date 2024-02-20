@@ -12,10 +12,12 @@ function Milestone(props) {
     setShowModal(false);
   };
 
-  const  handleSendMessage =  (text) => {
+  const  handleSendMessage = async (text) => {
       const updatedMessage =
-        { sender: 'User', text: text };
-       API.sendChatMessage(updatedMessage);
+        { sender: "David87", text: text };
+        console.log("viva la mamma" )
+      await API.sendChatMessage(updatedMessage);
+      console.log("ciao")
        props.setposted();
     }
 

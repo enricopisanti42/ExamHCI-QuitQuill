@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import API from '../API';
 const ReportsList = (props) => {
   //const [selectedReport, setSelectedReport] = useState(null);
+  const [showModal, setShowModal] = useState(false); // Stato per controllare la visibilità del modal
 
   const handleReportUpdate = (updatedReport) => {
     API.modifyReport(updatedReport)
@@ -21,9 +22,25 @@ const ReportsList = (props) => {
     props.setshowForm(true);
   };
 
+  const handleOpenDeleteModal = (report) => {
+    props.setSelectedReport(report);
+    setShowModal(true);
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedReport(null);
+  };
+
   const handleCloseEditModal = () => {
     setSelectedReport(null);
   };
+
+  const deleteReport = async () => {
+    await API.deleteReport(props.selectedReport.ID);
+    setShowModal(false);
+    props.cambiostato();
+  }
 
   const getMoodIcon = (mood) => {
     switch (mood) {
@@ -52,6 +69,9 @@ const ReportsList = (props) => {
                 <Button variant="primary" onClick={() => handleOpenEditModal(report)}>
                   Edit
                 </Button>
+                <Button variant="danger" onClick={() => handleOpenDeleteModal(report)}>
+                  Delete
+                </Button>
               </Col>
             </Row>
             <Row>
@@ -67,6 +87,24 @@ const ReportsList = (props) => {
                 {report.Time}
               </Col>
             </Row>
+            {showModal && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{"Are you sure to delete the report?"}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>If you press delete, the report will no longer be available:</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+            <Button variant="danger" onClick={deleteReport}>
+            Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
           </Container>
         ))}
       </ul>
@@ -222,7 +260,7 @@ function Homelayout(props) {
     <h3>Your day so far:</h3>
     </Row>
     <Row>
-    <ReportsList setshowForm={setshowForm} setshowHome={setshowHome} reports={reports} cambiostato={handleupdatereport} setSelectedReport={setSelectedReport}/>
+    <ReportsList setshowForm={setshowForm} setshowHome={setshowHome} reports={reports} cambiostato={handleupdatereport} setSelectedReport={setSelectedReport} selectedReport={selectedReport}/>
     </Row>
     <Row className="mt-3">
         <Col className="text-center">

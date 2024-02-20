@@ -163,6 +163,43 @@ app.get("/api/time", (req, res) => {
     .catch((err) => res.status(500).json(err)); // always return a json and an error message
 });
 
+
+app.delete('/api/report/:id', async (req, res) => {
+  try {
+    // Chiamata alla funzione deleteReport del modulo reportDao passando l'ID del report dalla richiesta
+    const result = await reportDao.deleteReport(req.params.id);
+
+    // Verifica se il report è stato eliminato con successo
+    if (result == null) {
+      return res.status(200).json({ message: "Report deleted successfully" }); // Restituisci un messaggio di successo
+    } else {
+      return res.status(404).json({ error: "No report was deleted." }); // Restituisci un errore se il report non è stato eliminato
+    }
+  } catch (err) {
+    // Gestione degli errori durante la cancellazione del report
+    res.status(500).json({ error: `Database error during the deletion of report ${req.params.id}: ${err}` });
+  }
+});
+
+app.delete('/api/chat/:id', async (req, res) => {
+  try {
+    // Chiamata alla funzione deleteReport del modulo reportDao passando l'ID del report dalla richiesta
+    const result = await chatDao.deleteMsg(req.params.id);
+
+    // Verifica se il report è stato eliminato con successo
+    if (result == null) {
+      return res.status(200).json({ message: "messaggio deleted successfully" }); // Restituisci un messaggio di successo
+    } else {
+      return res.status(404).json({ error: "No report was deleted." }); // Restituisci un errore se il report non è stato eliminato
+    }
+  } catch (err) {
+    // Gestione degli errori durante la cancellazione del report
+    res.status(500).json({ error: `Database error during the deletion of report ${req.params.id}: ${err}` });
+  }
+});
+
+
+
 /*
 
 //Update a page, by providing all relevant information and the id.

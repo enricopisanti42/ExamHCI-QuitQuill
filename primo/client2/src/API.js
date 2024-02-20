@@ -134,11 +134,18 @@ const sendReport = async (report) => {
   );
 };
 
-const deleteBooking = async (bookingid) => {
+const deleteReport = async (reportid) => {
   return getJson(
-    fetch(`${SERVER_URL}bookings/${bookingid}`, {
+    fetch(`${SERVER_URL}report/${reportid}`, {
       method: "DELETE",
-      credentials: "include",
+    })
+  );
+};
+
+const deleteChatMessage = async (messageId) => {
+  return getJson(
+    fetch(`${SERVER_URL}chat/${messageId}`, {
+      method: "DELETE",
     })
   );
 };
@@ -170,7 +177,7 @@ const API = {
   getChatMessage,
   sendChatMessage,
   getReports,
-  deleteBooking,
+  deleteReport,
   fetchMilestones,
   fetchTime,
   modifyReport,
@@ -178,5 +185,6 @@ const API = {
   getChatExpert,
   sendChatExpert,
   modifyExpertChat,
+  deleteChatMessage
 };
 export default API;

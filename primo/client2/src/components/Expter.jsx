@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
+import { FaLungs, FaHeart, FaBrain } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import API from "../API";
 
@@ -53,6 +54,8 @@ const ChatApp = (props) => {
         });
 
         setChatPassate(chatPassate); // Imposta chatPassate con l'array di oggetti chatpassate
+
+        console.log(chatPassate);
       } catch (error) {
         console.error("Errore durante il recupero dei messaggi:", error);
       }
@@ -301,6 +304,12 @@ const ChatApp = (props) => {
                   variant="primary"
                   onClick={() => handleDoctorClick(doctor.type)}
                 >
+                   <span style={{ display: "block" }}>
+                  {/* Inserisci l'icona del dottore all'interno del bottone */}
+                  {doctor.type === "Pneumologist" && <FaLungs />}
+                  {doctor.type === "Cardiologist" && <FaHeart />}
+                  {doctor.type === "Psychologist" && <FaBrain />}
+                  </span>
                   {doctor.type}
                 </Button>
               </Col>
@@ -327,7 +336,7 @@ const ChatApp = (props) => {
                       variant="success"
                       className="float-end"
                       onClick={() =>
-                        props.cambiodottore(`Dr.${doctor.lastName}`)
+                        props.cambiodottore(`Dr.${doctor.lastName} (${doctor.specialization})`)
                       }
                     >
                       Start chat
