@@ -25,13 +25,13 @@ const Calendar = () => {
         Mood: 0,
         Smoked: 1,
         Feelings: "Feeling sad today",
-        Time: "10:00 am"
+        Time: "10:00 AM"
       },
       {
         Mood: 2,
         Smoked: 0,
         Feelings: "Feeling happy today",
-        Time: "03:00 pm"
+        Time: "03:00 PM"
       }
     ];
     
@@ -40,20 +40,14 @@ const Calendar = () => {
         Mood: 1,
         Smoked: 0,
         Feelings: "Feeling neutral today",
-        Time: "09:30 am"
+        Time: "09:30 AM"
       },
       {
         Mood: 2,
         Smoked: 1,
         Feelings: "Feeling happy today",
-        Time: "02:15 pm"
+        Time: "02:15 PM"
       },
-      {
-        Mood: 0,
-        Smoked: 1,
-        Feelings: "Feeling sad today",
-        Time: "11:45 am"
-      }
     ];
 
     const reports3 = [
@@ -61,7 +55,7 @@ const Calendar = () => {
         Mood: 1,
         Smoked: 0,
         Feelings: "Feeling neutral today",
-        Time: "09:30 am"
+        Time: "09:30 AM"
       }
     ];
 
@@ -156,7 +150,7 @@ const Calendar = () => {
           onClick={() => handleDateClick(date)} >
             {currentDate <= daysInMonth && (
               <Button
-              className={date.getDate() === selectedDate.getDate() ? 'date-button-selected border rounded p-2 d-flex justify-content-center align-items-center' : 'date-button border rounded p-2 d-flex justify-content-center align-items-center'}
+              className='date-button border rounded p-2 d-flex justify-content-center align-items-center'
               onClick={() => handleDateClick(date)}
             >
               {currentDate}
@@ -252,17 +246,19 @@ const Calendar = () => {
         {(selectedDate.getDate() === 5 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
           <>
           <p>Congratulations! <br></br> <br></br>
-          In this date you unlocked the achievement: 
-          <br></br><br></br>
-          20 cigarettes not smoked</p>
+          In this date you unlocked the milestone: 
+          <br></br></p>
+          <p><b>🏆 20 cigarettes not smoked 🏆</b></p>
+          <p>You can go in the Milestones section if you want to share it!</p>
           <ReportsList reportn={1}></ReportsList>
           </>
         ) : (selectedDate.getDate() === 12 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
           <>
           <p>Congratulations! <br></br> <br></br>
-          In this date you unlocked the achievement: 
-          <br></br><br></br>
-          "Coughing and shortness of breath decrease."</p>
+          In this date you unlocked the milestone: 
+          <br></br></p>
+          <p><b>🏆 Coughing and shortness of breath decrease 🏆</b></p>
+          <p>You can go in the Milestones section if you want to share it!</p>
           <ReportsList reportn={2}></ReportsList>
           </>
         ) : (selectedDate.getDate() === 6 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
@@ -270,7 +266,7 @@ const Calendar = () => {
         ) : (selectedDate.getDate() === 9 && selectedDate.getMonth() === 1 && selectedDate.getFullYear() === 2024) ? (
           <ReportsList reportn={1}></ReportsList>
         ) : (
-          <p>No achievements or report for this date.</p>
+          <p>No milestone or report for this date.</p>
         )}
       </Modal.Body>
       <Modal.Footer>

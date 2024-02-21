@@ -295,7 +295,7 @@ const FakeChat = (props) => {
       <div ref={chatContainerRef} className="message-container">
         {messages.map((message, index) => (
           <div className="message">
-          <div className="message-box">
+          <div className={message.sender === 'David87' ? "message-box-david" : "message-box"}>
             <div className="sender-info">
               <i className="icon bi bi-person-fill"></i>
               {message.sender}

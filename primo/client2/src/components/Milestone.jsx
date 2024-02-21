@@ -120,7 +120,7 @@ function Milestone(props) {
           </Modal.Header>
           <Modal.Body>
             <p>You have achieved the milestone:</p>
-            <p>{selectedMilestone.Description}</p>
+            <p><b>{selectedMilestone.Description}</b></p>
             <p> Do you want to share it?</p>
           </Modal.Body>
           <Modal.Footer>

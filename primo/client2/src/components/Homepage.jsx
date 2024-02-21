@@ -94,7 +94,7 @@ const ReportsList = (props) => {
             <Modal.Title>{"Are you sure to delete the report?"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>If you press delete, the report will no longer be available:</p>
+            <p>If you press delete, the report will no longer be available</p>
           </Modal.Body>
           <Modal.Footer>
             <Button className='color-bottone-second' onClick={handleCloseModal}>
@@ -230,7 +230,7 @@ function Homelayout(props) {
       <Row className="mt-3">
         {showForm && (
             <Col>
-              <Button className='color-bottone' onClick={() => {setShowModal(true)}}>Go Back</Button>
+              <Button className='color-bottone-second' onClick={() => {setShowModal(true)}}>Go Back</Button>
             </Col>
         )}
       </Row>
@@ -252,10 +252,10 @@ function Homelayout(props) {
   <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
   <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
 </svg></Col>
-      <Col className='paddedtexttop'>{money}</Col>
+      <Col className='paddedtexttop'>{money} €</Col>
     </Row>
     <Row>
-      <h2>Remember: You are doing this for your children</h2>
+      <h2><em>Remember: You are doing this for your children</em></h2>
     </Row>
     <Row>
     <h3>Your day so far:</h3>

@@ -9,13 +9,13 @@
 .color-bottone{
   background-color: #060a3c;
   color: white;
-  border: #060a3c;
+  border: 2px solid #060a3c;
 }
 
 .color-bottone:hover{
   background-color: #060a3c;
   color: white;
-  border: #060a3c;
+  border: 2px solid #060a3c;
 }
 
 .esperti{
@@ -49,8 +49,8 @@
 }
 
 .color-bottone-second:hover{
-  background-color: white;
-  color: #060a3c;
+  background-color: #060a3c;
+  color: white;
   border: 2px solid #060a3c;
 }
 
@@ -69,13 +69,17 @@
 
 .delete-chat{
   margin-left: auto; /* Imposta il margine sinistro su "auto", spingendo il bottone del cestino verso destra */
-  background-color:  #d3d3d3 ;
+  background-color:  #060a3c ;
   color: white;
 }
 
 .delete-chat:hover{
-  background-color: #d3d3d3 ;
+  background-color: #060a3c ;
   color: white;
+}
+
+.tipo-dott{
+  text-align: center;
 }
 
 .active-filter {
@@ -290,6 +294,13 @@ small.watch-date {
   display: inline-block;
 }
 
+.message-box-david {
+  background: aliceblue;
+  padding: 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
 .sender-info {
   display: flex;
   align-items: center;
@@ -360,6 +371,12 @@ small.watch-date {
 .day {
   border: 1px solid #000000;
   background-color: #fff7e8;
+  padding: 10px;
+}
+
+.day:hover {
+  border: 1px solid #000000;
+  background-color: #a88c66;
   padding: 10px;
 }
 

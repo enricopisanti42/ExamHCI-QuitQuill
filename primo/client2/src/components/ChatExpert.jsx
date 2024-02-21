@@ -297,7 +297,7 @@ const Chatexpert = (props) => {
             <Row className="mt-1">
                 <Col className="go-back">
                     <Link to="/askexperts">
-                        <Button className="color-bottone" onClick={handleTornaIndietro}>
+                        <Button className="color-bottone-second" onClick={handleTornaIndietro}>
                             Go Back
                         </Button>
                     </Link>

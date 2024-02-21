@@ -211,7 +211,7 @@ const ChatApp = (props) => {
           <>
           <Col className="go-back">
             <Button
-              className="color-bottone"
+              className="color-bottone-second"
               onClick={() => {
                 handleTornaIndietro();
               }}
@@ -227,22 +227,6 @@ const ChatApp = (props) => {
           </>
         )}
       </Row>
-      <Row className="mt-3" >
-        <Col className="text-center">
-          {!isNewChatStarted && (
-            <Button
-            className='color-bottone'
-              onClick={() => {
-                setShowPreviousChats(false);
-                setIsNewChatStarted(true);
-              }}
-            >
-              Start a new Chat
-            </Button>
-          )}
-        </Col>
-      </Row>
-
       {showPreviousChats && (
         <>
           <Row className="mt-3 text-center">
@@ -262,7 +246,7 @@ const ChatApp = (props) => {
                         console.log(doctor.doctor);
                         handleNewChat(doctor.doctor);
                       }}
-                      className="color-bottone float-end"
+                      className="color-bottone-second float-end"
                     >
                       Open Chat
                     </Button>
@@ -273,6 +257,23 @@ const ChatApp = (props) => {
           </Row>
         </>
       )}
+
+      <Row className="mt-3" >
+              <Col className="text-center">
+                {!isNewChatStarted && (
+                  <Button
+                  className='color-bottone'
+                    onClick={() => {
+                      setShowPreviousChats(false);
+                      setIsNewChatStarted(true);
+                    }}
+                  >
+                    Start a new Chat
+                  </Button>
+                )}
+              </Col>
+      </Row>
+
 
       {!showPreviousChats && isNewChatStarted && mostratutto && (
         <>
@@ -303,9 +304,14 @@ const ChatApp = (props) => {
       )}
 
       {selectedDoctorType && !showPreviousChats && isNewChatStarted && (
+        <>        
         <Row className="mt-3">
-          <Col>
+          <Col className="tipo-dott">
             <h3>{selectedDoctorType}s</h3>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <br></br>
             <ListGroup>
               {filteredDoctors.map((doctor) => (
@@ -317,7 +323,7 @@ const ChatApp = (props) => {
                     <Col>
                   <Link to="/chatexpert">
                     <Button
-                      className="color-bottone float-end"
+                      className="color-bottone-second float-end"
                       onClick={() =>
                         props.cambiodottore(`Dr.${doctor.lastName} (${doctor.specialization})`)
                       }
@@ -332,6 +338,7 @@ const ChatApp = (props) => {
             </ListGroup>
           </Col>
         </Row>
+        </>
       )}
 
       {fakechatpartita && (
