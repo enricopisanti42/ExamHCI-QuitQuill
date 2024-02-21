@@ -406,7 +406,7 @@ const ChatComponent = (props) => {
             key={index}
             className={` ${message.sender === "David87" ? "user-message" : ""}`}
           >
-            <div className="message-box ">
+            <div className={message.sender === 'David87' ? "message-box-david" : "message-box"}>
               <div className="sender-info">
                 <i className="icon bi bi-person-fill"></i>
                 {message.sender}
