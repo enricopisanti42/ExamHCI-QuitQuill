@@ -1,6 +1,7 @@
 import 'dayjs';
 
 import { Modal, Table, Form, Button,Container,Row,Col } from 'react-bootstrap/'
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 import { Link, useLocation } from 'react-router-dom';
 
@@ -66,11 +67,11 @@ const ReportsList = (props) => {
                 <strong>Mood:</strong> {getMoodIcon(report.Mood)}
               </Col>
               <Col xs={3} className='text-right'>
-                <Button variant="primary" onClick={() => handleOpenEditModal(report)}>
-                  Edit
+                <Button className='delete-edit' onClick={() => handleOpenEditModal(report)}>
+                  <FaEdit />
                 </Button>
-                <Button variant="danger" onClick={() => handleOpenDeleteModal(report)}>
-                  Delete
+                <Button className='delete-edit' onClick={() => handleOpenDeleteModal(report)}>
+                  <FaTrash />
                 </Button>
               </Col>
             </Row>
@@ -96,10 +97,10 @@ const ReportsList = (props) => {
             <p>If you press delete, the report will no longer be available:</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
+            <Button className='color-bottone-second' onClick={handleCloseModal}>
               Close
             </Button>
-            <Button variant="danger" onClick={deleteReport}>
+            <Button className='color-bottone' onClick={deleteReport}>
             Delete
             </Button>
           </Modal.Footer>
@@ -229,7 +230,7 @@ function Homelayout(props) {
       <Row className="mt-3">
         {showForm && (
             <Col>
-              <Button variant="outline-primary" onClick={() => {setShowModal(true)}}>Go Back</Button>
+              <Button className='color-bottone' onClick={() => {setShowModal(true)}}>Go Back</Button>
             </Col>
         )}
       </Row>
@@ -265,6 +266,7 @@ function Homelayout(props) {
     <Row className="mt-3">
         <Col className="text-center">
             <Button
+            className='color-bottone'
               variant="outline-primary"
               onClick={() => {setshowHome(false); setshowForm(true)}}
             >
@@ -292,10 +294,10 @@ function Homelayout(props) {
             <p>All the unsaved changes will be lost.</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
+            <Button className='color-bottone-second'onClick={handleCloseModal}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={() => {setshowHome(true); setshowForm(false); setShowModal(false); setSelectedReport(null)}}>
+            <Button className='color-bottone' onClick={() => {setshowHome(true); setshowForm(false); setShowModal(false); setSelectedReport(null)}}>
              Go back
             </Button>
           </Modal.Footer>
@@ -315,7 +317,7 @@ const ErrorModal = ({ show, handleClose}) => {
         <p>Please fill all the fields in the form.</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button className='color-bottone' onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>
@@ -456,7 +458,7 @@ const MoodForm = (props) => {
       </div>
       <br></br>
       <Button
-              variant="outline-primary"
+              className='color-bottone'
               onClick={hanldeSave}
             >
               Save
@@ -475,10 +477,10 @@ const MoodForm = (props) => {
           <p>The report will be modifiable in the home page.</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button className='color-bottone-second' onClick={handleCloseModal}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button className='color-bottone' onClick={handleSubmit}>
            Save
           </Button>
         </Modal.Footer>

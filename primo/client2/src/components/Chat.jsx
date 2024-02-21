@@ -214,6 +214,7 @@ export { FakeChat };
 import React, { useState, useRef, useEffect } from 'react';
 import API from '../API';
 import { Modal, Table, Form, Button,Container,Row,Col } from 'react-bootstrap/'
+import { FaTrash } from 'react-icons/fa';
 
 const ChatMessage = ({ sender, text, onDelete,id }) => (
   <div className="message">
@@ -299,7 +300,9 @@ const FakeChat = (props) => {
               <i className="icon bi bi-person-fill"></i>
               {message.sender}
               {message.sender === 'David87' && (
-                <button onClick={() => mostrmodale(message.ID)}>X</button>
+               <button className="delete-chat" onClick={() => mostrmodale(message.ID)}>
+               <FaTrash />
+             </button>
               )}
             </div>
             <div className="message-text">{message.Text}</div>
@@ -328,10 +331,10 @@ const FakeChat = (props) => {
             <p>If you press delete, the message will be canceled.</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
+            <Button className='color-bottone-second' onClick={handleCloseModal}>
               Close
             </Button>
-            <Button variant="danger" onClick={handleDeleteMessage}>
+            <Button className='color-bottone' onClick={handleDeleteMessage}>
             Delete
             </Button>
           </Modal.Footer>

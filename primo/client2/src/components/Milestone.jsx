@@ -65,7 +65,8 @@ function Milestone(props) {
 
   // Funzione per condividere la milestone
   const shareMilestone = (text) => {
-    handleSendMessage(text)
+    const newtext = "Hey friends! I have achieved this milestone: \"" + text + "\"";
+    handleSendMessage(newtext)
     setShowModal(false); // Chiudi il modal dopo aver condiviso la milestone
  // Ricarica la pagina dopo l'invio del messaggio
   };
@@ -123,10 +124,10 @@ function Milestone(props) {
             <p> Do you want to share it?</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
+            <Button className='color-bottone-second' onClick={handleCloseModal}>
               Close
             </Button>
-            <Button variant="primary" onClick={() => shareMilestone(selectedMilestone.Description)}>
+            <Button className='color-bottone' onClick={() => shareMilestone(selectedMilestone.Description)}>
             Share
             </Button>
           </Modal.Footer>

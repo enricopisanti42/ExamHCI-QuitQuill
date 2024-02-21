@@ -189,7 +189,7 @@ const Calendar = () => {
       <Row className="mt-3">
         <Col className="text-center">
           <Button
-            variant="outline-primary"
+            className='color-bottone-second'
             onClick={() =>
               setSelectedDate(
                 new Date(
@@ -211,7 +211,7 @@ const Calendar = () => {
         </Col>
           <Col>
           <Button
-            variant="outline-primary"
+            className='color-bottone-second'
             onClick={() =>
               setSelectedDate(
                 new Date(
@@ -274,7 +274,7 @@ const Calendar = () => {
         )}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseModal}>
+        <Button className='color-bottone' onClick={handleCloseModal}>
           Close
         </Button>
       </Modal.Footer>

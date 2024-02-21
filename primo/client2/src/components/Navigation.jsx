@@ -60,7 +60,7 @@ const Navigation = (props) => {
           <p>You can share it in the community by going in the Milestones section!</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button className='color-bottone' onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>

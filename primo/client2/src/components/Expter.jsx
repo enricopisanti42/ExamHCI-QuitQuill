@@ -157,24 +157,10 @@ const ChatApp = (props) => {
       specialization: "Cardiologist",
     },
     {
-      id: 14,
-      firstName: "Daniel",
-      lastName: "Thompson",
-      experienceYears: 15,
-      specialization: "Cardiologist",
-    },
-    {
       id: 15,
       firstName: "Emily",
       lastName: "White",
       experienceYears: 8,
-      specialization: "Psychologist",
-    },
-    {
-      id: 16,
-      firstName: "Jack",
-      lastName: "Harris",
-      experienceYears: 12,
       specialization: "Psychologist",
     },
     {
@@ -184,14 +170,6 @@ const ChatApp = (props) => {
       experienceYears: 20,
       specialization: "Pneumologist",
     },
-    {
-      id: 18,
-      firstName: "William",
-      lastName: "Lee",
-      experienceYears: 18,
-      specialization: "Pneumologist",
-    },
-    // Add more doctors as needed
   ];
 
   const handleDoctorClick = (doctorType) => {
@@ -233,7 +211,7 @@ const ChatApp = (props) => {
           <>
           <Col className="go-back">
             <Button
-              variant="outline-primary"
+              className="color-bottone"
               onClick={() => {
                 handleTornaIndietro();
               }}
@@ -253,7 +231,7 @@ const ChatApp = (props) => {
         <Col className="text-center">
           {!isNewChatStarted && (
             <Button
-              variant="outline-primary"
+            className='color-bottone'
               onClick={() => {
                 setShowPreviousChats(false);
                 setIsNewChatStarted(true);
@@ -279,13 +257,12 @@ const ChatApp = (props) => {
                   <ListGroup.Item key={doctor.id}>
                     {doctor.doctor}
                     <Button
-                      variant="success"
                       onClick={() => {
                         setdottoreDB(doctor.doctor);
                         console.log(doctor.doctor);
                         handleNewChat(doctor.doctor);
                       }}
-                      className="float-end"
+                      className="color-bottone float-end"
                     >
                       Open Chat
                     </Button>
@@ -308,7 +285,7 @@ const ChatApp = (props) => {
             {doctorsType.map((doctor, index) => (
               <Col key={index} className="text-center mb-3">
                 <Button
-                  variant="primary"
+                  className={`${selectedDoctorType === doctor.type ? 'esperti-attivo' : 'esperti'}`}
                   onClick={() => handleDoctorClick(doctor.type)}
                 >
                    <span style={{ display: "block" }}>
@@ -340,8 +317,7 @@ const ChatApp = (props) => {
                     <Col>
                   <Link to="/chatexpert">
                     <Button
-                      variant="success"
-                      className="float-end"
+                      className="color-bottone float-end"
                       onClick={() =>
                         props.cambiodottore(`Dr.${doctor.lastName} (${doctor.specialization})`)
                       }
