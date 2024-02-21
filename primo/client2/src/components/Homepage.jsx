@@ -77,7 +77,7 @@ const ReportsList = (props) => {
             </Row>
             <Row>
               <Col>
-                <strong> {report.Smoked ? 'you were tempted to smoke' : 'you were not tempted to smoke'}</strong>
+                <strong> {report.Smoked ? 'You were tempted to smoke' : 'You were not tempted to smoke'}</strong>
               </Col>
             </Row>
             <Row>

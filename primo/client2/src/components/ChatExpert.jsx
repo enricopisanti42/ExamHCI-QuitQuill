@@ -265,10 +265,10 @@ const Chatexpert = (props) => {
 
             // Definisci una lista di messaggi finti del dottore
             const fakeDoctorMessages = [
-                "Ciao, come posso aiutarti?",
-                "Sto aspettando ulteriori informazioni.",
-                "Per favore, descrivi meglio il tuo problema.",
-                "Posso consigliarti alcuni passi da seguire."
+                "Hi! How can I help you?",
+                "Tell me more about this problem, when does it happen?",
+                "Are you alone when this happens?",
+                "Okay, now I will give you some advices"
             ];
 
             // Invia i messaggi finti del dottore in sequenza

@@ -254,6 +254,28 @@ const FakeChat = (props) => {
     fetchData();
   }, [props.posted]);
 
+  useEffect(() => {
+    const sendMessage = async (sender, text) => {
+      const newmsg = { sender, text };
+      await API.sendChatMessage(newmsg);
+      props.setposted(prev => prev + 1);
+    };
+  
+    const timers = [
+      setTimeout(() => sendMessage('Luigi24', "Congratulations David, keep it up!"), 10000),
+      setTimeout(() => sendMessage('Sarah88', "You're doing great, David! Keep pushing forward!"), 20000),
+      setTimeout(() => sendMessage('JohnDoe', "Stay strong, David! You've got this!"), 30000),
+      setTimeout(() => sendMessage('AliceSmith', "Believe in yourself, David. You're making progress!"), 40000),
+      setTimeout(() => sendMessage('Michael123', "One step at a time, David. You're on the right path!"), 50000),
+      setTimeout(() => sendMessage('EmilyGreen', "Keep going, David! You're stronger than you think!"), 60000)
+    ];
+    
+  return () => {
+    timers.forEach(timer => clearTimeout(timer));
+  };
+}, []);
+  
+
   const mostrmodale=(id) =>{
     setShowModal(true);
     setDeleteMsg(id);
