@@ -473,3 +473,11 @@ CCS PER PAGINA MILESTONE
 
   
 }
+
+.go-back {
+  max-width: 200px
+}
+
+.nome-doc {
+  text-align: center;
+}

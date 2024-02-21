@@ -295,12 +295,15 @@ const Chatexpert = (props) => {
     return (
         <Container className='row-small'>
             <Row className="mt-1">
-                <Col>
+                <Col className="go-back">
                     <Link to="/askexperts">
                         <Button variant="outline-primary" onClick={handleTornaIndietro}>
                             Go Back
                         </Button>
                     </Link>
+                </Col>
+                <Col>
+                    <h3 className='nome-doc'>{props.dottore}</h3>
                 </Col>
             </Row>
             <Row>

@@ -11,7 +11,7 @@ const Navigation = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowInitialModal(true);
-    }, 10000); // Mostro il modal dopo 5 secondi
+    }, 600000); // 1000 -> 1 secondo
 
     return () => clearTimeout(timer); // Pulisco il timer quando il componente si smonta
   }, []);

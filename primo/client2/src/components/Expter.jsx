@@ -230,7 +230,8 @@ const ChatApp = (props) => {
     <Container className="row-small">
       <Row className="mt-3">
         {isNewChatStarted && (
-          <Col>
+          <>
+          <Col className="go-back">
             <Button
               variant="outline-primary"
               onClick={() => {
@@ -240,6 +241,12 @@ const ChatApp = (props) => {
               Go Back
             </Button>
           </Col>
+          {fakechatpartita && (
+          <Col>
+          <h3 className='nome-doc'>{dottoreDB}</h3>
+          </Col>
+          )}
+          </>
         )}
       </Row>
       <Row className="mt-3" >
