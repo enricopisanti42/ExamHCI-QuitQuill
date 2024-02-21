@@ -304,20 +304,50 @@ function Homelayout(props) {
   </Container>
   );
 }
+
+const ErrorModal = ({ show, handleClose}) => {
+  return (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>{"Some fields are missing!"}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>Please fill all the fields in the form.</p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
   
 const MoodForm = (props) => {
   const [mood, setMood] = useState(props.report ? props.report.Mood === 0 ? '0' : props.report.Mood === 1 ? '1' : props.report.Mood === 2 ? '2' : null : null);
   const [answer, setAnswer] = useState(props.report ? props.report.Smoked === 1 ? '1' : '0' : null);
   const [text, setText] = props.report ? useState(props.report.Feelings) : useState('');
-  
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [showModalSend, setShowModalSend] = useState(false);
 
   const handleCloseModal = () => {
     setShowModalSend(false);
   };
 
+  const hanldeSave = () => {
+
+    // Validazione dei campi
+    if (!mood || !answer || !text) {
+      setShowErrorModal(true);
+      return; // Esce dalla funzione se i campi non sono stati compilati
+    }
+
+    setShowModalSend(true);
+  }
+
   const handleSubmit =async (event) => {
     event.preventDefault();
+
     console.log('Mood:', mood);
     console.log('Answer:', answer);
     console.log('Text:', text);
@@ -427,15 +457,19 @@ const MoodForm = (props) => {
       <br></br>
       <Button
               variant="outline-primary"
-              onClick={() => {setShowModalSend(true);}}
+              onClick={hanldeSave}
             >
               Save
       </Button>
     </form>
+    <ErrorModal
+    show={showErrorModal}
+    handleClose={() => setShowErrorModal(false)}
+    />
     {showModalSend && (
       <Modal show={showModalSend} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{"Are you sure send the report?"}</Modal.Title>
+          <Modal.Title>{"Are you sure to save the report?"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>The report will be modifiable in the home page.</p>

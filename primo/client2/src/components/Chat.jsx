@@ -322,10 +322,10 @@ const FakeChat = (props) => {
       {showModal && (
         <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>
-            <Modal.Title>{"Are you sure to delete the report?"}</Modal.Title>
+            <Modal.Title>{"Are you sure to delete the message?"}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>If you press delete, the report will no longer be available:</p>
+            <p>If you press delete, the message will be canceled.</p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>

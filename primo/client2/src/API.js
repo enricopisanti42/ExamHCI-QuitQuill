@@ -170,6 +170,17 @@ const modifyReport = async (report) => {
   );
 };
 
+const updateMilestone = async () => {
+  return getJson(
+    fetch(`${SERVER_URL}milestones/13`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  );
+};
+
 const API = {
   logIn,
   getUserInfo,
@@ -185,6 +196,7 @@ const API = {
   getChatExpert,
   sendChatExpert,
   modifyExpertChat,
-  deleteChatMessage
+  deleteChatMessage,
+  updateMilestone,
 };
 export default API;

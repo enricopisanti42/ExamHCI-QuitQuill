@@ -156,6 +156,18 @@ app.get("/api/milestones", (req, res) => {
     .catch((err) => res.status(500).json(err)); // always return a json and an error message
 });
 
+app.put("/api/milestones/:id", async (req, res) => {
+
+  try {
+    const result1 = await milestoneDao.updateMilestone();
+    res.status(200).json(result1);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: `Database error during the update of a milestone: ${err}` });
+  }
+});
+
 app.get("/api/time", (req, res) => {
   timeDao
     .getTime()

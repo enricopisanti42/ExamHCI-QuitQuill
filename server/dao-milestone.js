@@ -20,3 +20,23 @@ exports.listMilestone = () => {
     });
   });
 };
+
+exports.updateMilestone = async () => {
+  return new Promise(async (resolve, reject) => {
+    const sql = "UPDATE Milestones SET Achieved=1 WHERE ID=13";
+
+    db.run(
+      sql,
+      function (err) {
+        if (err) {
+          reject(err);
+        }
+        if (this.changes !== 1) {
+          reject({ error: "No milestone was updated." });
+        } else {
+          resolve({ message: "ok" });
+        }
+      }
+    );
+  });
+};

@@ -21,12 +21,21 @@ function Milestone(props) {
        props.setposted();
     }
 
-  useEffect(() => {
-    // Carica le milestone quando il componente viene montato
-    API.fetchMilestones().then((data) => {
-      setMilestones(data);
-    });
-  }, []);
+    useEffect(() => {
+      // Carica le milestone quando il componente viene montato
+      const fetchMilestones = async () => {
+        const data = await API.fetchMilestones();
+        setMilestones(data);
+      };
+  
+      fetchMilestones(); // Chiamata iniziale per caricare le milestone
+  
+      // Imposta un intervallo per eseguire il fetch delle milestone ogni secondo
+      const interval = setInterval(fetchMilestones, 500);
+  
+      // Pulisce l'intervallo quando il componente viene smontato
+      return () => clearInterval(interval);
+    }, []);
 
   // Funzione per ottenere un'icona di trofeo se la milestone è stata raggiunta
   const getAchievedIcon = (milestone) => {
