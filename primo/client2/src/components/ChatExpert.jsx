@@ -248,7 +248,7 @@ const Chatexpert = (props) => {
         API.modifyExpertChat(props.dottore);
     };
 
-    const handleSendMessage = (event) => {
+    const handleSendMessage = async (event) => {
         event.preventDefault();
         if (newMessage.trim() !== '') {
             const userMessage = {
@@ -259,7 +259,7 @@ const Chatexpert = (props) => {
             };
 
             // Invia il messaggio dell'utente
-            API.sendChatExpert(userMessage);
+           await API.sendChatExpert(userMessage);
             setNewMessage('');
             setPosted(prev => prev + 1);
 

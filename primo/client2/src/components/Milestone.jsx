@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Col, Row } from 'react-bootstrap';
+import { Modal, Button, Col, Row, Toast } from 'react-bootstrap';
 import API from '../API';
 import '../APP.css'; // Assicurati di avere un file CSS per lo stile delle milestone
 
@@ -7,6 +7,11 @@ function Milestone(props) {
   const [milestones, setMilestones] = useState([]);
   const [showModal, setShowModal] = useState(false); // Stato per controllare la visibilità del modal
   const [selectedMilestone, setSelectedMilestone] = useState(null); // Stato per memorizzare la milestone selezionata
+  const [showToast, setShowToast] = useState(false);
+
+  const toggleToast = () => {
+    setShowToast(!showToast);
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -15,10 +20,9 @@ function Milestone(props) {
   const  handleSendMessage = async (text) => {
       const updatedMessage =
         { sender: "David87", text: text };
-        console.log("viva la mamma" )
       await API.sendChatMessage(updatedMessage);
-      console.log("ciao")
        props.setposted();
+       toggleToast();
     }
 
     useEffect(() => {
@@ -110,6 +114,11 @@ function Milestone(props) {
             </div>
           </div>
         ))}
+        <Toast show={showToast} onClose={toggleToast} delay={3000} autohide bg="success">
+          <Toast.Body>
+            Milestone shared in the Community chat
+          </Toast.Body>
+        </Toast>
       </Col>
     </Row>
       {/* Modal per la condivisione */}

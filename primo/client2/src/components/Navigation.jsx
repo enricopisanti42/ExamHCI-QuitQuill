@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import API from '../API';
-import { Navbar, Nav, Col, Row, Container, Modal, Button} from 'react-bootstrap';
+import { Navbar, Nav, Col, Row, Container, Modal, Button, Image} from 'react-bootstrap';
 import { Link ,useLocation} from 'react-router-dom';
 import { RouteFilters } from './Filters';
 const Navigation = (props) => {
@@ -37,6 +37,7 @@ const Navigation = (props) => {
             <Link style={{textDecoration: 'none'}} to="/home">
               <Navbar.Brand className='logo'>
                 <em>Quit Quill</em>
+                <Image src="./favicon.png" alt="Quit Quill Icon" width={30} height={30} />
               </Navbar.Brand>
             </Link>
           </Col>

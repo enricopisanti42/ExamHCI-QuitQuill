@@ -1,6 +1,6 @@
 import 'dayjs';
 
-import { Modal, Table, Form, Button,Container,Row,Col } from 'react-bootstrap/'
+import { Modal, Table, Form, Button,Container,Row,Col, Toast } from 'react-bootstrap/'
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -40,6 +40,8 @@ const ReportsList = (props) => {
   const deleteReport = async () => {
     await API.deleteReport(props.selectedReport.ID);
     setShowModal(false);
+    props.setSelectedReport(null);
+    props.toggleToast(2);
     props.cambiostato();
   }
 
@@ -200,6 +202,15 @@ function Homelayout(props) {
 
   const [selectedReport, setSelectedReport] = useState(null);
 
+  const [showToast, setShowToast] = useState(false);
+
+  const [statoToast, setstatoToast] = useState(null);
+
+  const toggleToast = (index) => {
+    setstatoToast(index);
+    setShowToast(!showToast);
+  };
+
   const handleupdatereport = () => {
     setaddedRepo(prevAddedRepo=>prevAddedRepo + 1)
   }
@@ -258,10 +269,18 @@ function Homelayout(props) {
       <h2><em>Remember: You are doing this for your children</em></h2>
     </Row>
     <Row>
+      <Col>
     <h3>Your day so far:</h3>
+    </Col>
+    <Col>
+    <Toast show={showToast} onClose={toggleToast} delay={3000} autohide bg={statoToast === 2 ? "danger" :"success"}>
+      <Toast.Body>
+      {statoToast === 0 ? "Report modified successfully!" : statoToast === 1 ? "Report saved successfully!" : "Report deleted successfully"}      </Toast.Body>
+    </Toast>
+    </Col>
     </Row>
     <Row>
-    <ReportsList setshowForm={setshowForm} setshowHome={setshowHome} reports={reports} cambiostato={handleupdatereport} setSelectedReport={setSelectedReport} selectedReport={selectedReport}/>
+    <ReportsList setshowForm={setshowForm} setshowHome={setshowHome} reports={reports} cambiostato={handleupdatereport} setSelectedReport={setSelectedReport} selectedReport={selectedReport} toggleToast={toggleToast}/>
     </Row>
     <Row className="mt-3">
         <Col className="text-center">
@@ -281,7 +300,7 @@ function Homelayout(props) {
         <h1>How is your day going?</h1>
         </Row>
         <Row className="text-center">
-        <MoodForm setshowHome={setshowHome} setshowForm={setshowForm} cambiostato={handleupdatereport} report={selectedReport} setSelectedReport={setSelectedReport}></MoodForm>
+        <MoodForm setshowHome={setshowHome} setshowForm={setshowForm} cambiostato={handleupdatereport} report={selectedReport} setSelectedReport={setSelectedReport} toggleToast={toggleToast}></MoodForm>
         </Row>
         </>
       )}
@@ -350,10 +369,6 @@ const MoodForm = (props) => {
   const handleSubmit =async (event) => {
     event.preventDefault();
 
-    console.log('Mood:', mood);
-    console.log('Answer:', answer);
-    console.log('Text:', text);
-
     if (props.report){
       const newReport = {
         ID: props.report.ID,
@@ -363,7 +378,7 @@ const MoodForm = (props) => {
       };
 
       await API.modifyReport(newReport);
-      console.log("finito il modfy");
+      props.toggleToast(0); // Toggle the toast
       props.setSelectedReport(null);
 
     }else{
@@ -374,7 +389,7 @@ const MoodForm = (props) => {
       };
 
       await API.sendReport(newReport);
-      console.log("finito send");
+      props.toggleToast(1); // Toggle the toast
     }
 
     setShowModalSend(false);
