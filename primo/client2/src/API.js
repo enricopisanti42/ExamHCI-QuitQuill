@@ -74,36 +74,109 @@ const logOut = async () => {
  * This function retrieves the reservations for a user based on their ID.
  * It takes the user ID as a parameter and returns a JSON object with the user's reservations.
  */
-const getUserReservations = async (userId) => {
-  return getJson(
-    fetch(`${SERVER_URL}bookings/${userId}`, {
-      // this parameter specifies that authentication cookie must be forwarded
-      credentials: "include",
-    })
-  );
+const getChatMessage = async () => {
+  return getJson(fetch(`${SERVER_URL}chat`));
 };
 
-const getAirplaneInfo = async (planetype) => {
-  return getJson(fetch(`${SERVER_URL}airplanes/${planetype}`));
-};
-
-const createBooking = async (booking) => {
+const sendChatMessage = async (message) => {
   return getJson(
-    fetch(`${SERVER_URL}bookings`, {
+    fetch(`${SERVER_URL}chat/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
-      body: JSON.stringify(booking),
+      body: JSON.stringify(message),
     })
   );
 };
-const deleteBooking = async (bookingid) => {
+
+const getChatExpert = async () => {
+  return getJson(fetch(`${SERVER_URL}chatexpert`));
+};
+
+const sendChatExpert = async (message) => {
+  console.log(message);
   return getJson(
-    fetch(`${SERVER_URL}bookings/${bookingid}`, {
+    fetch(`${SERVER_URL}chatexpert/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    })
+  );
+};
+
+const modifyExpertChat = async (doctor) => {
+  return getJson(
+    fetch(`${SERVER_URL}chatexpert/modify/${doctor}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  );
+};
+
+const getReports = async (booking) => {
+  return getJson(fetch(`${SERVER_URL}reports`));
+};
+
+const sendReport = async (report) => {
+  return getJson(
+    fetch(`${SERVER_URL}report/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(report),
+    })
+  );
+};
+
+const deleteReport = async (reportid) => {
+  return getJson(
+    fetch(`${SERVER_URL}report/${reportid}`, {
       method: "DELETE",
-      credentials: "include",
+    })
+  );
+};
+
+const deleteChatMessage = async (messageId) => {
+  return getJson(
+    fetch(`${SERVER_URL}chat/${messageId}`, {
+      method: "DELETE",
+    })
+  );
+};
+
+const fetchMilestones = async () => {
+  return getJson(fetch(`${SERVER_URL}milestones`));
+};
+
+const fetchTime = async () => {
+  return getJson(fetch(`${SERVER_URL}time`));
+};
+
+const modifyReport = async (report) => {
+  return getJson(
+    fetch(`${SERVER_URL}report/${report.ID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(report),
+    })
+  );
+};
+
+const updateMilestone = async () => {
+  return getJson(
+    fetch(`${SERVER_URL}milestones/13`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
   );
 };
@@ -112,9 +185,18 @@ const API = {
   logIn,
   getUserInfo,
   logOut,
-  getUserReservations,
-  getAirplaneInfo,
-  createBooking,
-  deleteBooking,
+  getChatMessage,
+  sendChatMessage,
+  getReports,
+  deleteReport,
+  fetchMilestones,
+  fetchTime,
+  modifyReport,
+  sendReport,
+  getChatExpert,
+  sendChatExpert,
+  modifyExpertChat,
+  deleteChatMessage,
+  updateMilestone,
 };
 export default API;
